@@ -9,6 +9,7 @@
     font-size: 18px;
     line-height: 22px;
     text-align: center;
+    opacity: 1;
 }
 
 @media screen and (max-width: 1279px) {
@@ -19,4 +20,9 @@
         line-height: 17px;
         text-align: center;
     }
+}
+
+.edit-profile__submit:hover {
+    transition: opacity 2s ease-in-out;
+    opacity: 0.8;
 }
