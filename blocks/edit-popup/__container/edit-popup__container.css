@@ -1,0 +1,19 @@
+.edit-popup__container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #fefefe;
+    margin: auto;
+    max-width: 430px;
+    height: 330px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 1279px) {
+    .edit-popup__container {
+        max-width: 282px;
+        height: 322px;
+    }
+}

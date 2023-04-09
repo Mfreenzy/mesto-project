@@ -1,0 +1,19 @@
+.edit-profile__name {
+    max-width: 358px;
+    height: 27px;
+    border: none;
+    border-bottom: 1px solid #545454;
+    padding:0;
+    margin:0 0 30px 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+@media screen and (max-width: 1279px) {
+    .edit-profile__name {
+        max-width: 238px;
+    }
+}

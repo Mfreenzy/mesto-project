@@ -1,0 +1,20 @@
+.edit-popup__close {
+    position: absolute;
+    background-image: url(../../../images/close.svg);
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    width: 32px;
+    height: 32px;
+    right: -40px;
+    top: -40px;
+}
+
+@media screen and (max-width: 1279px) {
+    .edit-popup__close {
+        width: 20px;
+        height: 20px;
+        right: 0;
+        top: -36px;
+    }
+}

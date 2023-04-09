@@ -1,0 +1,22 @@
+.edit-profile__submit {
+    height: 50px;
+    border: none;
+    background-color: #000000;
+    color:#ffffff;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1279px) {
+    .edit-profile__submit {
+        width: 238px;
+        height: 46px;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+    }
+}
