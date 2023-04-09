@@ -8,14 +8,13 @@
     padding: 0 0 66px 0;
 }
 
-@media screen and (max-width:1279px) {
+@media screen and (max-width: 1279px) {
     .elements {
         max-width: 282px;
         grid-template-columns: 282px;
         grid-template-rows: repeat(6, 361px);
-        gap:21px;
+        gap: 21px;
         margin: 0 19px;
         padding: 0 0 48px 0;
     }
-    
 }
