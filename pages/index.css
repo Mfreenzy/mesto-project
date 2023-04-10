@@ -30,7 +30,7 @@
 @import url(../blocks/edit-popup/edit-popup.css);
 @import url(../blocks/edit-popup/__close/edit-popup__close.css);
 @import url(../blocks/edit-popup/__container/edit-popup__container.css);
-@import url(../blocks/edit-popup/_closed/edit-popup_closed.css);
+@import url(../blocks/edit-popup/_opened/edit-popup_opened.css);
 
 @import url(../blocks/edit-profile/__container/edit-profile__container.css);
 @import url(../blocks/edit-profile/__name/edit-profile__name.css);
