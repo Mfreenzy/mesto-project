@@ -1,7 +1,7 @@
 .header {
     max-width: 880px;
-    padding: 45px 0 40px 0;
-    margin: 0 200px;
+    padding: 45px 0 0 0;
+    margin: 0 200px 40px 200px;
     width: 100%;
     box-sizing: border-box;
     display: flex;
@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 41px;
+    border-bottom: 1px solid rgba(84,84,84,0.7);
 }
 
 @media screen and (max-width: 1279px) {

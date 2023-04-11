@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Место</title>
         <link rel="stylesheet" href="./pages/index.css">
@@ -17,68 +17,70 @@
                     <img class="profile__avatar" src="./images/avatar.png" alt="Моя фотка">
                     <div class="profile__info">
                         <div class="profile__container">
-                            <p class="profile__name">Сергей Ф.</p>
-                            <button class="profile__edit-button"></button>
+                            <h2 class="profile__name">Сергей Федорченко</h2>
+                            <button type="button" class="profile__edit-button"></button>
                         </div>
                         <p class="profile__prof">Студент 25-ой когорты</p>
                     </div>
-                    <button class="profile__add-button"></button>
+                    <button type="button" class="profile__add-button"></button>
                 </section>
                 <section class="elements">
                     <article class="element">
                         <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
                         <div class="element__container">
                             <h2 class="element__title">Карачаевск</h2>
-                            <button class="element__like element__like_active"></button>
+                            <button type="button" class="element__like element__like_active"></button>
                         </div>
                     </article>
                     <article class="element">
                         <img class="element__image" src="./images/bigbogdo.jpg" alt="Гора Большой Богдо">
                         <div class="element__container">
                             <h2 class="element__title">Гора Большой Богдо</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
                     </article>
                     <article class="element">
                         <img class="element__image" src="./images/lenskstolb.jpg" alt="Ленские столбы">
                         <div class="element__container">
                             <h2 class="element__title">Ленские столбы</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
                     </article>
                     <article class="element">
                         <img class="element__image" src="./images/volcano.jpg" alt="Вулкан Креницына">
                         <div class="element__container">
                             <h2 class="element__title">Вулкан Креницына</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
                     </article>
                     <article class="element">
                         <img class="element__image" src="./images/glass.jpg" alt="Стеклянная бухта">
                         <div class="element__container">
                             <h2 class="element__title">Стеклянная бухта</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
                     </article>
                     <article class="element">
                         <img class="element__image" src="./images/pinklake.jpg" alt="Розовое озеро Сасык-Сиваш">
                         <div class="element__container">
                             <h2 class="element__title">Розовое озеро Сасык-Сиваш</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
                     </article>
                 </section>
             </main>
-            <footer class="footer">©2023 Федорченко Сергей</footer>
-            <div class="edit-popup edit-popup_opened">
+            <footer class="footer">
+                <p class="footer__copyright">@2023 Федорченко Сергей</p>
+            </footer>
+            <div class="edit-popup">
                 <div class="edit-popup__container">
-                    <button class="edit-popup__close"></button>
+                    <button type="button" class="edit-popup__close"></button>
                     <form class="edit-profile">
                         <h2 class="edit-profile__title">Редактировать профиль</h2>
                         <div class="edit-profile__container">
                             <input type="text" name="ed-name" class="edit-profile__name" value="Жак-Ив Кусто">
                             <input type="text" name="ed-prof" class="edit-profile__prof" value="Исследователь океана">
-                            <input type="submit" name="ed-submit" class="edit-profile__submit" value="Сохранить">
+                            <button type="submit" name="ed-submit" class="edit-profile__submit" value="Сохранить"></button>
                         </div>
                     </form>
                 </div>
