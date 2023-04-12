@@ -1,4 +1,5 @@
 .popup__close {
+    cursor: pointer;
     position: absolute;
     background-image: url(../../../images/close.svg);
     background-size: cover;
