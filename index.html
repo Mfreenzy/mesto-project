@@ -10,7 +10,6 @@
         <div class="page__container">
             <header class="header">
                 <div class="header__logo"></div>
-                <div class="header__line"></div>
             </header>
             <main>
                 <section class="profile">
@@ -72,16 +71,14 @@
             <footer class="footer">
                 <p class="footer__copyright">@2023 Федорченко Сергей</p>
             </footer>
-            <div class="edit-popup">
-                <div class="edit-popup__container">
-                    <button type="button" class="edit-popup__close"></button>
-                    <form class="edit-profile">
-                        <h2 class="edit-profile__title">Редактировать профиль</h2>
-                        <div class="edit-profile__container">
-                            <input type="text" name="ed-name" class="edit-profile__name" value="Жак-Ив Кусто">
-                            <input type="text" name="ed-prof" class="edit-profile__prof" value="Исследователь океана">
-                            <button type="submit" name="ed-submit" class="edit-profile__submit" value="Сохранить"></button>
-                        </div>
+            <div class="popup popup_opened">
+                <div class="popup__container">
+                    <button type="button" class="popup__close"></button>
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <form name="profile-name" class="profile-name">
+                        <input type="text" name="ed-name" class="popup__input popup__input_text_ed-name" value="" placeholder="Введите имя">
+                        <input type="text" name="ed-prof" class="popup__input popup__input_text_ed-prof" value="" placeholder="Введите род деятельности">
+                        <button type="submit" name="ed-submit" class="popup__submit">Сохранить</button>
                     </form>
                 </div>
             </div>

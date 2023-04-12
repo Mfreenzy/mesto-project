@@ -1,28 +1,28 @@
-.edit-profile__submit {
+.popup__submit {
     height: 50px;
     border: none;
     background-color: #000000;
     color: #ffffff;
-    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     opacity: 1;
+    margin:0 0 37px 0;
 }
 
 @media screen and (max-width: 1279px) {
-    .edit-profile__submit {
+    .popup__submit {
         width: 238px;
         height: 46px;
         font-size: 14px;
         line-height: 17px;
-        text-align: center;
+        margin:0 0 25px 0;
     }
 }
 
-.edit-profile__submit:hover {
+.popup__submit:hover {
     transition: opacity 2s ease-in-out;
     opacity: 0.8;
 }

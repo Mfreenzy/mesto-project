@@ -1,4 +1,5 @@
 .element__like {
+    cursor: pointer;
     border: none;
     background-color: #ffffff;
     background-image: url(../../../images/like.svg);
@@ -12,7 +13,6 @@
 }
 
 .element__like:hover {
-    cursor: pointer;
     transition: opacity 2s ease-in-out;
     opacity: 0.5;
 }

@@ -1,19 +1,16 @@
-.edit-popup__container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+.popup__container {
+    display: flex;
+    position: relative;
     background-color: #fefefe;
     margin: auto;
     max-width: 430px;
-    height: 330px;
     border-radius: 10px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
 }
 
 @media screen and (max-width: 1279px) {
-    .edit-popup__container {
+    .popup__container {
         max-width: 282px;
-        height: 322px;
     }
 }
