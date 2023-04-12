@@ -1,19 +1,19 @@
 @font-face {
-    src: url(../Inter/Inter-Medium.ttf) format("ttf");
+    src: url(../Inter/Inter-Medium.ttf) format("truetype");
     font-display: swap;
     font-family: 'Inter';
     font-weight: 500;
 }
 
 @font-face {
-    src: url(../Inter/Inter-Regular.ttf) format("ttf");
+    src: url(../Inter/Inter-Regular.ttf) format("truetype");
     font-display: swap;
     font-family: 'Inter';
     font-weight: normal;
 }
 
 @font-face {
-    src: url(../Inter/Inter-Black.ttf) format("ttf");
+    src: url(../Inter/Inter-Black.ttf) format("truetype");
     font-family: 'Inter';
     font-weight: 900;
 }
