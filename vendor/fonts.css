@@ -6,7 +6,7 @@
 }
 
 @font-face {
-    src: url(../Inter/Inter-Regular.woff2) format("woff2"), url(../Inter/Inter-Regular.woff) format ("woff");
+    src: url(../Inter/Inter-Regular.woff2) format("woff2"), url(../Inter/Inter-Regular.woff) format("woff");
     font-display: swap;
     font-family: "Inter";
     font-weight: normal;
