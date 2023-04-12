@@ -38,9 +38,5 @@
 
 @import url(../blocks/profile-name/profile-name.css);
 
-@import url(../blocks/edit-profile/edit-profile.css);
-@import url(../blocks/edit-profile/__container/edit-profile__container.css);
-@import url(../blocks/edit-profile/__submit/edit-profile__submit.css);
-@import url(../blocks/edit-profile/__title/edit-profile__title.css);
 
 
