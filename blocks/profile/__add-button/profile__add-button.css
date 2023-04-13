@@ -22,6 +22,7 @@
     .profile__add-button {
         background-image: url(../../../images/aButton_mobile.svg);
         width: 282px;
+        margin:10px 0 0 0;
     }
     
 }
