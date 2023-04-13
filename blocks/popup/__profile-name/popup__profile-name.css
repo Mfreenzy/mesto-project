@@ -1,11 +1,11 @@
-.profile-name {
+.popup__profile-name {
     display: flex;
     flex-direction: column;
     margin: 0 36px;
 }
 
-@media screen and (max-width:1289px) {
-    .profile-name {
+@media screen and (max-width:1279px) {
+    .popup__profile-name {
         margin: 0 22px;
     }
 }

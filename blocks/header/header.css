@@ -8,15 +8,13 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 41px;
     border-bottom: 1px solid rgba(84,84,84,0.7);
 }
 
 @media screen and (max-width: 1279px) {
     .header {
         max-width: 320px;
-        padding: 28px 0 42px 0;
-        gap: 31.6px;
-        margin: 0;
+        padding: 28px 0 31.6px 0;
+        margin:0 0 42px 0;
     }
 }
