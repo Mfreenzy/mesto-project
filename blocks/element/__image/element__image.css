@@ -1,7 +1,15 @@
 .element__image {
+    cursor:pointer;
     object-fit: cover;
     width: 282px;
     height: 282px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    opacity: 1;
+}
+
+
+.element__image:hover{
+    transition: opacity 2s ease-in-out;
+    opacity: 0.95;
 }

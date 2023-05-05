@@ -1,4 +1,5 @@
 .element {
+    position: relative;
     max-width: 282px;
     box-sizing: border-box;
     display: flex;

@@ -1,4 +1,4 @@
-.popup {
+.addPopup {
     display: flex;
     visibility: hidden;
     position: fixed;

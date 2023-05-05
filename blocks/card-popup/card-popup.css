@@ -1,4 +1,4 @@
-.popup {
+.card-popup {
     display: flex;
     visibility: hidden;
     position: fixed;
