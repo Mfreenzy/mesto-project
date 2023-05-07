@@ -53,6 +53,8 @@ const crdPopupContainer = document.querySelector(".popup__container_card-zoom-co
 const crdPopupButton = document.querySelector(".popup__close_card-close");
 const crdPopupImage = document.querySelector(".popup__image_card-image");
 const crdPopupTitle = document.querySelector(".popup__textbox_card-textbox");
+const closeButtons = document.querySelectorAll('.popup__close')
+
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -87,7 +89,12 @@ function createElement(elementTitle, elementImage) {
   newElementName.textContent = elementTitle;
   newElementImage.src = elementImage;
   newElementImage.alt = elementTitle;
-  
+
+  closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(popup));
+  });
+
   likeButton.addEventListener("click", function (evt) {
       evt.target.classList.toggle("element__like_active");
   });
@@ -104,12 +111,13 @@ function createElement(elementTitle, elementImage) {
       crdPopupImage.alt = elementTitle;
   });
 
-  crdPopupButton.addEventListener("click", () => {
-      closePopup(crdPopup);
-      crdPopupTitle.textContent = delete elementTitle
-      crdPopupImage.src = delete elementImage;
+  crdPopupButton.addEventListener("click", () => { 
+      closePopup(crdPopup); 
+      crdPopupTitle.textContent = delete elementTitle 
+      crdPopupImage.src = delete elementImage; 
       crdPopupImage.alt = delete elementTitle;
   });
+
 
   return newElement;
 }
@@ -125,18 +133,10 @@ profileEditButton.addEventListener("click", () => {
   jobInput.value = profileProf.textContent;
 });
 
-editClose.addEventListener("click", () => {
-  closePopup(editProfile);
-});
-
 formElement.addEventListener("submit", handleFormSubmit);
 
 addButton.addEventListener("click", () => {
   openPopup(addPopup);
-});
-
-addPopupClose.addEventListener("click", () => {
-  closePopup(addPopup);
 });
 
 formAddElement.addEventListener("submit", addFormSubmit);
