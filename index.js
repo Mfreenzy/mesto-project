@@ -87,9 +87,8 @@ function createElement(elementTitle, elementImage) {
   newElementName.textContent = elementTitle;
   newElementImage.src = elementImage;
   newElementImage.alt = elementTitle;
-  crdPopupTitle.textContent = elementTitle;
-  crdPopupImage.src = elementImage;
-  crdPopupImage.alt = elementTitle;
+  
+  
   
 
   likeButton.addEventListener("click", function (evt) {
@@ -103,6 +102,9 @@ function createElement(elementTitle, elementImage) {
 
   newElementImage.addEventListener("click", () => {
       openPopup(crdPopup);
+      crdPopupTitle.textContent = elementTitle;
+      crdPopupImage.src = elementImage;
+      crdPopupImage.alt = elementTitle;
   });
 
   crdPopupButton.addEventListener("click", () => {
