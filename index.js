@@ -89,6 +89,7 @@ function createElement(elementTitle, elementImage) {
   newElementImage.alt = elementTitle;
   crdPopupImage.src = elementImage;
   crdPopupTitle.textContent = elementTitle;
+  crdPopupImage.alt = elementTitle;
 
   likeButton.addEventListener("click", function (evt) {
       evt.target.classList.toggle("element__like_active");
