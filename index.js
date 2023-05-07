@@ -92,7 +92,7 @@ function createElement(elementTitle, elementImage) {
 
   closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
-    button.addEventListener('click', () => closePopup(popup));
+    button.addEventListener('click', () => {closePopup(popup)});
   });
 
   likeButton.addEventListener("click", function (evt) {
@@ -111,14 +111,14 @@ function createElement(elementTitle, elementImage) {
       crdPopupImage.alt = elementTitle;
   });
 
-  crdPopupButton.addEventListener("click", () => { 
-      closePopup(crdPopup); 
-      crdPopupTitle.textContent = delete elementTitle 
-      crdPopupImage.src = delete elementImage; 
-      crdPopupImage.alt = delete elementTitle;
-  });
+  function clearCrdPopup() {
+    crdPopupTitle.textContent = delete elementTitle;
+    crdPopupImage.src = delete elementImage;
+    crdPopupImage.alt = delete elementTitle; 
+  }
 
-
+  crdPopupButton.addEventListener('click', clearCrdPopup)
+      
   return newElement;
 }
 
