@@ -88,9 +88,6 @@ function createElement(elementTitle, elementImage) {
   newElementImage.src = elementImage;
   newElementImage.alt = elementTitle;
   
-  
-  
-
   likeButton.addEventListener("click", function (evt) {
       evt.target.classList.toggle("element__like_active");
   });
@@ -109,6 +106,9 @@ function createElement(elementTitle, elementImage) {
 
   crdPopupButton.addEventListener("click", () => {
       closePopup(crdPopup);
+      crdPopupTitle.textContent = delete elementTitle
+      crdPopupImage.src = delete elementImage;
+      crdPopupImage.alt = delete elementTitle;
   });
 
   return newElement;
