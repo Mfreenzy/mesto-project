@@ -64,6 +64,11 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => {closePopup(popup)});
+});
+
 function handleFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -89,11 +94,6 @@ function createElement(elementTitle, elementImage) {
   newElementName.textContent = elementTitle;
   newElementImage.src = elementImage;
   newElementImage.alt = elementTitle;
-
-  closeButtons.forEach((button) => {
-    const popup = button.closest('.popup');
-    button.addEventListener('click', () => {closePopup(popup)});
-  });
 
   likeButton.addEventListener("click", function (evt) {
       evt.target.classList.toggle("element__like_active");
