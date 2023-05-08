@@ -110,15 +110,7 @@ function createElement(elementTitle, elementImage) {
       crdPopupImage.src = elementImage;
       crdPopupImage.alt = elementTitle;
   });
-
-  function clearCrdPopup() {
-    crdPopupTitle.textContent = delete elementTitle;
-    crdPopupImage.src = delete elementImage;
-    crdPopupImage.alt = delete elementTitle; 
-  }
-
-  crdPopupButton.addEventListener('click', clearCrdPopup)
-      
+     
   return newElement;
 }
 
