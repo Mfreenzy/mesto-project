@@ -1,4 +1,4 @@
-import { openPopup, closePopup } from "./modal";
+import { openPopup } from "./modal";
 
 const elementTitle = document.querySelector(".element__title");
 const elementImage = document.querySelector(".element__image");
@@ -9,8 +9,6 @@ const crdPopupButton = document.querySelector(".popup__close_card-close");
 const crdPopupImage = document.querySelector(".popup__image_card-image");
 const crdPopupTitle = document.querySelector(".popup__textbox_card-textbox");
 const elementsContainer = document.querySelector(".elements");
-const addNameInput = document.querySelector(".popup__input_text_ad-name");
-const addLink = document.querySelector(".popup__input_text__ad-link");
 const addPopup = document.querySelector(".popup_add-popup");
 const addPopupContainer = document.querySelector(".popup__container_add-container");
 
@@ -50,11 +48,6 @@ export function addElementsContainer(elementsContainer, newElementName, newEleme
     elementsContainer.prepend(newElement);
   }
 
-  export function addFormSubmit(evt) {
-    evt.preventDefault();
-    addElementsContainer(elementsContainer, addNameInput.value, addLink.value);
-    closePopup(addPopup);
-    evt.target.reset();
-  }
+  
 
 export {elementsContainer, addPopup}
