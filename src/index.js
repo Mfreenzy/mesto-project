@@ -92,15 +92,6 @@ closeButtons.forEach((button) => {
   });
 });
 
-//popups.forEach((popup) =>{
-//  popup.addEventListener('click', function(evt) {
-//   closePopup(evt.target);
-//  });
- // document.addEventListener("keydown", function(evt) {
-   // if (evt.key === 'Escape') {
- //     closePopup(popup)
-///  }})
-//});
 
 const settings = {
   formSelector: ".popup__name",
