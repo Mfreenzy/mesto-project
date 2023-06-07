@@ -44,7 +44,7 @@
                     <h2 class="popup__title popup__title_edit-title ">Редактировать профиль</h2>
                     <form id="form" class="popup__name popup__name_edit-name" novalidate>
                             <label class="popup__label">
-                            <input type="text" pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$" id="ed-name" class="popup__input  popup__input_text_ed-name" value="" placeholder="Введите имя" required minlength="2" maxlength="40" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                            <input type="text" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" id="ed-name" class="popup__input  popup__input_text_ed-name" value="" placeholder="Введите имя" required minlength="2" maxlength="40" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
                             <span class="ed-name-error popup__input-error">Заполните это поле</span>
                             </label>
                             <label class="popup__label">
@@ -68,7 +68,7 @@
                         <input type="url" id="ad-link" class="popup__input  popup__input_text__ad-link" value="" placeholder="Ссылка на картинку" required>
                         <span  class="ad-link-error popup__input-error">Поле пустое</span>
                         </label>
-                        <button type="submit" id="ad-submit" class="popup__submit popup__submit_add-submit">Сохранить</button>
+                        <button type="submit" id="ad-submit" class="popup__submit popup__submit_invalid popup__submit_add-submit">Сохранить</button>
                     </form>
                 </div>
             </div>

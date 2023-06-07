@@ -12,7 +12,7 @@ const hideInputError = (formElement, inputElement, settings) => {
   errorElement.textContent = "";
 };
 
-const checkInputValidity = (formElement, inputElement, settings) => {
+export const checkInputValidity = (formElement, inputElement, settings) => {
   if (inputElement.validity.patternMismatch) {
       // данные атрибута доступны у элемента инпута через ключевое слово dataset.
       // обратите внимание, что в js имя атрибута пишется в camelCase (да-да, в
@@ -55,8 +55,6 @@ const setEventListeners = (formElement, settings) => {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
   const buttonElement = formElement.querySelector(settings.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement, settings);
-
   inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", function () {
           checkInputValidity(formElement, inputElement, settings);
@@ -64,6 +62,8 @@ const setEventListeners = (formElement, settings) => {
       });
   });
 };
+
+
 
 export function enableValidation(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
@@ -74,3 +74,14 @@ export function enableValidation(settings) {
       setEventListeners(formElement, settings);
   });
 }
+
+
+export const clearInputError = (formElement, settings) => {
+
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+  
+
+  inputList.forEach((inputElement) => {
+    hideInputError(inputElement) 
+  }
+)}

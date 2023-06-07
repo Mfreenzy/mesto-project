@@ -1,5 +1,5 @@
 import '../src/pages/index.css'
-import { enableValidation } from './components/validate';
+import { enableValidation, clearInputError} from './components/validate';
 import { openPopup, closePopup } from './components/modal';
 import { addElementsContainer, elementsContainer, addPopup} from './components/card';
 
@@ -63,7 +63,7 @@ function addFormSubmit(evt) {
   evt.target.reset();
 }
 
-export function handleFormSubmit(evt) {
+function handleFormSubmit(evt) {
   evt.preventDefault();
   profileNameInput.textContent = nameInput.value;
   profileProf.textContent = jobInput.value;
@@ -74,13 +74,13 @@ profileEditButton.addEventListener("click", () => {
   openPopup(editProfile);
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileProf.textContent;
+  clearInputError()
 });
 
 formEdit.addEventListener("submit", handleFormSubmit);
 
 addButton.addEventListener("click", () => {
   openPopup(addPopup);
-  
 });
 
 formAddElement.addEventListener("submit", addFormSubmit);
