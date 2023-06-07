@@ -2,6 +2,7 @@ import '../src/pages/index.css'
 import { enableValidation, clearInputError} from './components/validate';
 import { openPopup, closePopup } from './components/modal';
 import { addElementsContainer, elementsContainer, addPopup} from './components/card';
+import { clearErrorText } from './components/utils';
 
 
 const initialCards = [
@@ -74,6 +75,7 @@ profileEditButton.addEventListener("click", () => {
   openPopup(editProfile);
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileProf.textContent;
+  clearErrorText()
   clearInputError()
 });
 
