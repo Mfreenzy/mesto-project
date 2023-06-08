@@ -1,8 +1,8 @@
 import '../src/pages/index.css'
-import { enableValidation, clearInputError} from './components/validate';
+import { enableValidation } from './components/validate';
 import { openPopup, closePopup } from './components/modal';
 import { addElementsContainer, elementsContainer, addPopup} from './components/card';
-import { clearErrorText } from './components/utils';
+import { disableButton } from './components/utils';
 
 
 const initialCards = [
@@ -75,16 +75,13 @@ profileEditButton.addEventListener("click", () => {
   openPopup(editProfile);
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileProf.textContent;
-  clearErrorText()
-  clearInputError()
 });
 
 formEdit.addEventListener("submit", handleFormSubmit);
 
-addButton.addEventListener("click", () => {
+addButton.addEventListener("click", (evt) => {
   openPopup(addPopup);
-  clearErrorText()
-  clearInputError()
+  disableButton(submitAddButton)
 });
 
 formAddElement.addEventListener("submit", addFormSubmit);
@@ -95,7 +92,6 @@ closeButtons.forEach((button) => {
     closePopup(popup)
   });
 });
-
 
 const settings = {
   formSelector: ".popup__name",

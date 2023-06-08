@@ -63,8 +63,6 @@ const setEventListeners = (formElement, settings) => {
   });
 };
 
-
-
 export function enableValidation(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
@@ -76,11 +74,3 @@ export function enableValidation(settings) {
 }
 
 
-export const clearInputError = () => {
-
-  const inputList = Array.from(document.querySelectorAll(".popup__input"));
-  
-  inputList.forEach((inputElement) => {
-    inputElement.classList.remove("popup__input_type_error") 
-  }
-)}
