@@ -76,12 +76,11 @@ export function enableValidation(settings) {
 }
 
 
-export const clearInputError = (formElement, settings) => {
+export const clearInputError = () => {
 
-  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+  const inputList = Array.from(document.querySelectorAll(".popup__input"));
   
-
   inputList.forEach((inputElement) => {
-    hideInputError(inputElement) 
+    inputElement.classList.remove("popup__input_type_error") 
   }
 )}

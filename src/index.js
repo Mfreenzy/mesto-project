@@ -83,6 +83,8 @@ formEdit.addEventListener("submit", handleFormSubmit);
 
 addButton.addEventListener("click", () => {
   openPopup(addPopup);
+  clearErrorText()
+  clearInputError()
 });
 
 formAddElement.addEventListener("submit", addFormSubmit);
