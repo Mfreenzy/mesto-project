@@ -1,0 +1,33 @@
+.profile__avatar-button {
+    cursor: pointer;
+    border: none;
+    background-color: #000000;
+    background-size: cover;
+    padding: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    color: #ffffff;
+    opacity: 1;
+    position: relative;
+}
+
+.profile__avatar-button::after {
+    position: absolute;
+    content: " ";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: url(../../../images/AvatarIcon.png);
+    opacity: 0;
+    width: 120px;
+    height: 120px;
+    transition: opacity 0.2s;
+}
+
+.profile__avatar-button:hover::after {
+    transition: opacity 2s ease-in-out;
+    opacity: 0.8;
+}

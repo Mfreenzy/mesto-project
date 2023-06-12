@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Место</title>
     </head>
     <body class="page">
@@ -12,7 +12,9 @@
             </header>
             <main>
                 <section class="profile">
-                    <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Моя фотка">
+                    <button type="button" class="profile__avatar-button">
+                        <img class="profile__avatar" src="<%=require('./images/AvatarIcon.png')%>" alt="Моя фотка" />
+                    </button>
                     <div class="profile__info">
                         <div class="profile__container">
                             <h1 class="profile__name">Сергей Федорченко</h1>
@@ -25,11 +27,14 @@
                 <section class="elements">
                     <template id="element-image">
                         <article class="element">
-                            <img class="element__image" src="<%=require('./images/karachaevsk.jpg')%>" alt="Карачаевск">
+                            <img class="element__image" src="<%=require('./images/karachaevsk.jpg')%>" alt="Карачаевск" />
                             <button type="button" class="element__delete"></button>
                             <div class="element__container">
                                 <h2 class="element__title">Карачаевск</h2>
-                                <button type="button" class="element__like"></button>
+                                <label class="element__like-group">
+                                    <button type="button" class="element__like"></button>
+                                    <div class="element__like-count">0</div>
+                                </label>
                             </div>
                         </article>
                     </template>
@@ -41,16 +46,38 @@
             <div class="popup popup_edit-profile">
                 <div class="popup__container popup__container_edit-container">
                     <button type="button" class="popup__close popup__close_edit-close"></button>
-                    <h2 class="popup__title popup__title_edit-title ">Редактировать профиль</h2>
+                    <h2 class="popup__title popup__title_edit-title">Редактировать профиль</h2>
                     <form id="form" class="popup__name popup__name_edit-name" novalidate>
-                            <label class="popup__label">
-                            <input type="text" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" id="ed-name" class="popup__input  popup__input_text_ed-name" value="" placeholder="Введите имя" required minlength="2" maxlength="40" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                        <label class="popup__label">
+                            <input
+                                type="text"
+                                pattern="^[A-Za-zА-Яа-яЁё\s\-]+$"
+                                id="ed-name"
+                                class="popup__input popup__input_text_ed-name"
+                                value=""
+                                placeholder="Введите имя"
+                                required
+                                minlength="2"
+                                maxlength="40"
+                                data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                            />
                             <span class="ed-name-error popup__input-error">Заполните это поле</span>
-                            </label>
-                            <label class="popup__label">
-                            <input type="text" pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$" id="ed-prof" class="popup__input  popup__input_text_ed-prof" value="" placeholder="Введите род деятельности" required minlength="2" maxlength="200" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+                        </label>
+                        <label class="popup__label">
+                            <input
+                                type="text"
+                                pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$"
+                                id="ed-prof"
+                                class="popup__input popup__input_text_ed-prof"
+                                value=""
+                                placeholder="Введите род деятельности"
+                                required
+                                minlength="2"
+                                maxlength="200"
+                                data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                            />
                             <span class="ed-prof-error popup__input-error">Поле пустое</span>
-                            </label>
+                        </label>
                         <button type="submit" id="ed-submit" class="popup__submit popup__submit_edit-submit">Сохранить</button>
                     </form>
                 </div>
@@ -61,14 +88,38 @@
                     <h2 class="popup__title popup__title_add-title">Новое место</h2>
                     <form id="form" class="popup__name popup__name_add-name" novalidate>
                         <label class="popup__label">
-                        <input type="text" pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$" id="ad-name" class="popup__input  popup__input_text_ad-name" value="" placeholder="Название" required minlength="2" maxlength="40" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
-                        <span  class="ad-name-error popup__input-error">Поле пустое</span>
+                            <input
+                                type="text"
+                                pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$"
+                                id="ad-name"
+                                class="popup__input popup__input_text_ad-name"
+                                value=""
+                                placeholder="Название"
+                                required
+                                minlength="2"
+                                maxlength="40"
+                                data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                            />
+                            <span class="ad-name-error popup__input-error">Поле пустое</span>
                         </label>
                         <label class="popup__label">
-                        <input type="url" id="ad-link" class="popup__input  popup__input_text__ad-link" value="" placeholder="Ссылка на картинку" required>
-                        <span  class="ad-link-error popup__input-error">Поле пустое</span>
+                            <input type="url" id="ad-link" class="popup__input popup__input_text__ad-link" value="" placeholder="Ссылка на картинку" required />
+                            <span class="ad-link-error popup__input-error">Поле пустое</span>
                         </label>
                         <button type="submit" id="ad-submit" class="popup__submit popup__submit_invalid popup__submit_add-submit">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+            <div class="popup popup_avatar">
+                <div class="popup__container popup__container_avatar">
+                    <button type="button" class="popup__close popup__close_avatar"></button>
+                    <h2 class="popup__title popup__title_avatar">Обновить аватар</h2>
+                    <form id="form" class="popup__name popup__name_avatar" novalidate>
+                        <label class="popup__label">
+                            <input type="url" id="avatar-link" class="popup__input popup__input_text__avatar-link" value="" placeholder="Ссылка на картинку-аватар" required />
+                            <span class="avatar-link-error popup__input-error">Поле пустое</span>
+                        </label>
+                        <button type="submit" id="avatar-submit" class="popup__submit popup__submit_invalid popup__submit_avatar-submit">Сохранить</button>
                     </form>
                 </div>
             </div>
@@ -76,7 +127,7 @@
         <div class="popup popup_card-popup">
             <div class="popup__zoom-container popup__container_card-zoom-container">
                 <button type="button" class="popup__close popup__close_card-close"></button>
-                <img class="popup__image popup__image_card-image" src="<%=require('./images/karachaevsk.jpg')%>" alt="Карачаевск">
+                <img class="popup__image popup__image_card-image" src="<%=require('./images/karachaevsk.jpg')%>" alt="Карачаевск" />
                 <h2 class="popup__textbox popup__textbox_card-textbox">Карачаевск</h2>
             </div>
         </div>

@@ -2,7 +2,7 @@
     max-width: 880px;
     display: grid;
     grid-template-columns: repeat(3, 282px);
-    grid-template-rows: repeat(2, 361px);
+    grid-template-rows: repeat(999, 361px);
     gap: 21px 17px;
     margin: 0 200px;
     padding: 0 0 66px 0;
@@ -12,7 +12,7 @@
     .elements {
         max-width: 282px;
         grid-template-columns: 282px;
-        grid-template-rows: repeat(6, 361px);
+        grid-template-rows: repeat(999, 361px);
         gap: 21px;
         margin: 0 19px;
         padding: 0 0 48px 0;
