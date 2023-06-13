@@ -1,4 +1,4 @@
-const popupElement = document.querySelector(".popup");
+export const popupElement = document.querySelector(".popup");
 
 function closeByEsc(evt) {
     if (evt.key === 'Escape') {
