@@ -9,8 +9,7 @@ function closeByEsc(evt) {
 
 function closeByOvr(evt) {
     if (evt.target === evt.currentTarget) {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup); 
+        closePopup(evt.target);
     }
 
 }

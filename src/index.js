@@ -43,8 +43,12 @@ getInfo().then(([user, initialCards]) => {
 
     initialCards.forEach((data) => {
         addElementsContainer(elementsContainer, data, userID);
-    });
-});
+    });  
+})
+.catch((err) => {
+    console.log(err);
+})
+
 
 function avatarSubmit(evt) {
     evt.preventDefault();
