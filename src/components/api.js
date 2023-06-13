@@ -42,6 +42,7 @@ export const editUserProfile = (editData) => {
 export const addCard = (addData) => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
+    method: "POST",
       body: JSON.stringify(addData),
   }).then((res) => checkResponse(res))};
 
