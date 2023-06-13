@@ -30,6 +30,7 @@ export function getInfo() {
   return Promise.all([getUserProfile(), getInitialCards()]);
 }
 
+
 export const editUserProfile = (editData) => {
   return fetch(`${config.baseUrl}/users/me`, {
       method: "PATCH",
@@ -37,13 +38,10 @@ export const editUserProfile = (editData) => {
       body: JSON.stringify(editData),
   }).then((res) => checkResponse(res))};
 
+
 export const addCard = (addData) => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
-      headers: {
-          authorization: "b9602b46-c70a-470b-a1e9-9ea7e0422b9a",
-          "Content-Type": "application/json",
-      },
       body: JSON.stringify(addData),
   }).then((res) => checkResponse(res))};
 
@@ -52,40 +50,6 @@ export const deleteCard = (dataID) => {
       method: "DELETE",
       headers: config.headers,
   }).then((res) => checkResponse(res))};
-
-// export const putLikeOnCard = (_id) => {
-//     return fetch(`https://nomoreparties.co/v1/plus-cohort-25/cards/likes/_id`, {
-//         method: 'PUT',
-//         headers: {
-//           authorization: 'b9602b46-c70a-470b-a1e9-9ea7e0422b9a',
-//           'Content-Type': 'application/json'
-//         }
-//     })
-//        .then(res => {
-//         if (res.ok) {
-//           return res.json();
-//         }
-//         // если ошибка, отклоняем промис
-//         return Promise.reject(`Ошибка: ${res.status}`);
-//       });
-// }
-
-// export const removeLikeFromCard = (_id) => {
-//     return fetch (`https://nomoreparties.co/v1/plus-cohort-25/cards/likes/_id`, {
-//         method: 'DELETE',
-//         headers: {
-//           authorization: 'b9602b46-c70a-470b-a1e9-9ea7e0422b9a',
-//           'Content-Type': 'application/json'
-//         }
-//     })
-//        .then(res => {
-//         if (res.ok) {
-//           return res.json();
-//         }
-//         // если ошибка, отклоняем промис
-//         return Promise.reject(`Ошибка: ${res.status}`);
-//       });
-// }
 
 export const changeLikeStatus = (dataID, isLike) => {
   return fetch(`${config.baseUrl}/cards/likes/${dataID}`, {

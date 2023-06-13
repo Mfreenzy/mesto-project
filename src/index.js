@@ -47,15 +47,14 @@ getInfo()
     })
 })
 .catch((err) => {
-    console.log(err);
-});
-
+    console.log(err)
+})
 
 
 function avatarSubmit(evt) {
     evt.preventDefault();
     console.log(avatarLink.value);
-    setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true })
+    setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true });
     editAvatar({
         avatar: avatarLink.value,
     }).then((data) => {
@@ -74,7 +73,9 @@ function avatarSubmit(evt) {
 
 function addFormSubmit(evt) {
     evt.preventDefault();
-    setStatusOnButton({ buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true })
+    console.log(addNameInput.value);
+    console.log(addLink.value);
+    setStatusOnButton({ buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true });
     addCard({
         name: addNameInput.value,
         link: addLink.value,
