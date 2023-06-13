@@ -35,7 +35,8 @@ const avProfile = document.querySelector(".popup_avatar");
 
 let userID = null;
 
-getInfo().then(([user, initialCards]) => {
+getInfo()
+.then(([user, initialCards]) => {
     profileNameInput.textContent = user.name;
     profileProf.textContent = user.about;
     profileAvatar.src = user.avatar;
@@ -43,11 +44,12 @@ getInfo().then(([user, initialCards]) => {
 
     initialCards.forEach((data) => {
         addElementsContainer(elementsContainer, data, userID);
-    });  
+    })
 })
 .catch((err) => {
     console.log(err);
 })
+
 
 
 function avatarSubmit(evt) {
