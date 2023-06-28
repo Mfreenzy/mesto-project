@@ -3,8 +3,9 @@ import { enableValidation } from "./components/validate";
 import { openPopup, closePopup } from "./components/modal";
 import { addElementsContainer, elementsContainer, addPopup, updateLikeStatus, removeCard } from "./components/card";
 import { disableButton } from "./components/utils";
-import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
+// import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
 import { setStatusOnButton } from "./components/utils";
+import { api }   from "./components/api"
 
 const editContainer = document.querySelector(".popup__container_edit-container");
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -35,7 +36,7 @@ const avProfile = document.querySelector(".popup_avatar");
 
 let userID = null;
 
-getInfo()
+api.getInfo()
 .then(([user, initialCards]) => {
     profileNameInput.textContent = user.name;
     profileProf.textContent = user.about;
@@ -55,7 +56,7 @@ function avatarSubmit(evt) {
     evt.preventDefault();
     console.log(avatarLink.value);
     setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true });
-    editAvatar({
+    api.editAvatar({
         avatar: avatarLink.value,
     }).then((data) => {
         profileAvatar.src = data.avatar;
@@ -76,7 +77,7 @@ function addFormSubmit(evt) {
     console.log(addNameInput.value);
     console.log(addLink.value);
     setStatusOnButton({ buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true });
-    addCard({
+    api.addCard({
         name: addNameInput.value,
         link: addLink.value,
     })
@@ -96,7 +97,7 @@ function addFormSubmit(evt) {
 function handleFormSubmit(evt) {
     evt.preventDefault();
     setStatusOnButton({ buttonElement: submitButton, text: 'Сохраняем...', disabled: true })
-    editUserProfile({
+    api.editUserProfile({
         name: nameInput.value,
         about: jobInput.value,
     }).then((data) => {
@@ -142,7 +143,7 @@ closeButtons.forEach((button) => {
 });
 
 export const handleChangeLikeStatus = (cardID, isLiked, newElement) => {
-    changeLikeStatus(cardID, isLiked)
+    api.changeLikeStatus(cardID, isLiked)
     .then((dataFromServer) => {
         updateLikeStatus(newElement, dataFromServer.likes, userID);
     }).catch((err) => {
@@ -151,7 +152,7 @@ export const handleChangeLikeStatus = (cardID, isLiked, newElement) => {
 };
 
 export const handleDeleteCard = (cardID, newElement) => {
-    deleteCard(cardID).then(() => {
+    api.deleteCard(cardID).then(() => {
         removeCard(newElement);
     })
     .catch((err) => {
