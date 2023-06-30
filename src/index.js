@@ -1,7 +1,7 @@
 import "../src/pages/index.css";
 import {enableValidation} from "./components/validate";
 import {openPopup, closePopup} from "./components/modal";
-import {addElementsContainer, elementsContainer, addPopup, /*updateLikeStatus, removeCard*/} from "./components/card";
+import {addElementsContainer, elementsContainer, addPopup, buildCards} from "./components/card";
 import {disableButton} from "./components/utils";
 // import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
 import {setStatusOnButton} from "./components/utils";
@@ -44,9 +44,11 @@ api.getInfo()
     userID = user._id;
     console.log(user);
     console.log(initialCards);
-    initialCards.forEach((data) => {
+    buildCards(initialCards, userID);
+
+/*    initialCards.forEach((data) => {
       addElementsContainer(elementsContainer, data, userID);
-    })
+    })*/
   })
   .catch((err) => {
     console.log(err)
@@ -143,25 +145,8 @@ closeButtons.forEach((button) => {
   });
 });
 
-/*export const handleChangeLikeStatus = (cardID, isLiked, newElement) => {
-    api.changeLikeStatus(cardID, isLiked)
-    .then((dataFromServer) => {
-        updateLikeStatus(newElement, dataFromServer.likes, userID);
-    }).catch((err) => {
-        console.log(err);
-    });
-};*/
-
-/*
-//Кочкина Екатерина - вынесла функцию из CardOOP
-const removeCard = (newElement) => {
-  newElement.remove();
-  newElement = null;
-};*/
-
 export const handleDeleteCard = (cardID, newElement) => {
   api.deleteCard(cardID).then(() => {
-    //removeCard(newElement); //Кочкина Екатерина - возможно лишняя функция
     newElement.remove();
     newElement = null;
   })

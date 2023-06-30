@@ -6,7 +6,7 @@ const crdPopupImage = document.querySelector(".popup__image_card-image");
 const crdPopupTitle = document.querySelector(".popup__textbox_card-textbox");
 
 
-export default class CardOOP {
+export class CardOOP {
   constructor({card, userID, handleDeleteCard}, selector) {
     this._userID = userID;
     this._cardLink = card.link;
