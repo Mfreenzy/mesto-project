@@ -25,7 +25,7 @@
                     <button type="button" class="profile__add-button"></button>
                 </section>
                 <section class="elements">
-                    <template id="element-image">
+                    <!--<template id="element-image">
                         <article class="element">
                             <img class="element__image" src="<%=require('./images/karachaevsk.jpg')%>" alt="Карачаевск" />
                             <button type="button" class="element__delete"></button>
@@ -37,7 +37,7 @@
                                 </label>
                             </div>
                         </article>
-                    </template>
+                    </template>-->
                 </section>
             </main>
             <footer class="footer">
@@ -131,5 +131,20 @@
                 <h2 class="popup__textbox popup__textbox_card-textbox">Карачаевск</h2>
             </div>
         </div>
+
+        <template id="element-image">
+          <article class="element">
+            <img class="element__image" src="<%=require('./images/karachaevsk.jpg')%>" alt="Карачаевск" />
+            <button type="button" class="element__delete"></button>
+            <div class="element__container">
+              <h2 class="element__title">Карачаевск</h2>
+              <label class="element__like-group">
+                <button type="button" class="element__like"></button>
+                <div class="element__like-count">0</div>
+              </label>
+            </div>
+          </article>
+        </template>
+
     </body>
 </html>
