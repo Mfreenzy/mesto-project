@@ -1,11 +1,15 @@
 import "../src/pages/index.css";
 import { enableValidation } from "./components/validate";
-import { openPopup, closePopup } from "./components/modal";
+// import { openPopup, closePopup } from "./components/modal";
 import { addElementsContainer, elementsContainer, addPopup, updateLikeStatus, removeCard } from "./components/card";
 import { disableButton } from "./components/utils";
 // import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
 import { setStatusOnButton } from "./components/utils";
 import { api }   from "./components/api"
+import { PopupWithForm } from "./components/popupWithForm";
+import { UserInfo } from "./components/userInfo";
+
+
 
 const editContainer = document.querySelector(".popup__container_edit-container");
 const profileEditButton = document.querySelector(".profile__edit-button");
