@@ -159,7 +159,7 @@ const removeCard = (newElement) => {
   newElement = null;
 };*/
 
-export const handleDeleteCard = (cardID, newElement) => {
+/*export const handleDeleteCard = (cardID, newElement) => {
   api.deleteCard(cardID).then(() => {
     //removeCard(newElement); //Кочкина Екатерина - возможно лишняя функция
     newElement.remove();
@@ -168,8 +168,19 @@ export const handleDeleteCard = (cardID, newElement) => {
     .catch((err) => {
       console.log(err);
     });
-};
+};*/
 
+export const handleDeleteCard = (instance) => {
+    api.deleteCard(instance.getCardId()).then(() => {
+    instance.remove();
+      //removeCard(newElement); //Кочкина Екатерина - возможно лишняя функция
+/*    newElement.remove();
+    newElement = null;*/
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 const settings = {
   formSelector: ".popup__name",
   inputSelector: ".popup__input",

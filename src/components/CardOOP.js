@@ -73,6 +73,15 @@ export default class CardOOP {
     return this._element;
   }
 
+  getCardId() {
+    return this._cardID
+  }
+
+  remove() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _openZoom() {
     openPopup(crdPopup);
     crdPopupTitle.textContent = this._cardName;
@@ -89,7 +98,7 @@ export default class CardOOP {
 
     if (this._myCard) {
       this._cardTrash.addEventListener('click', () =>
-        this._handleDeleteCard(this._cardID, this._element));
+        this._handleDeleteCard(this));
     }
   }
 }
