@@ -163,8 +163,8 @@ closeButtons.forEach((button) => {
   });
 });
 
-export const handleChangeLikeStatus = (cardID, isLiked, newElement, instance) => {
-  api.changeLikeStatus(cardID, isLiked)
+export const handleChangeLikeStatus = (/*cardID, isLiked, newElement, */instance) => {
+  api.changeLikeStatus(instance.getCardId(), instance.getHasMyLike())
     .then((dataFromServer) => {
       instance.updateLikeValueInstance(dataFromServer.likes);
     }).catch((err) => {
@@ -189,10 +189,11 @@ const settings = {
   errorClass: "popup__input-error_active",
 };
 
-const openZoom = ({title, url}) => {
+const openZoom = (instance) => {
   openPopup(crdPopup);
+  const title = instance.getInfoImg().title
   crdPopupTitle.textContent = title;
-  crdPopupImage.src = url;
+  crdPopupImage.src = instance.getInfoImg().url;
   crdPopupImage.alt = title;
 }
 

@@ -62,6 +62,10 @@ export class Card {
       : this._elementLike.classList.remove('element__like_active');
   };
 
+  getHasMyLike() {
+    return this._hasMyLike;
+  }
+
   getCardId() {
     return this._cardID
   }
@@ -71,12 +75,16 @@ export class Card {
     this._element = null;
   }
 
+  getInfoImg() {
+    return {title: this._cardName, url: this._cardLink}
+  }
+
   _setEventListeners() {
     this._elementImage.addEventListener('click', () =>
-      this._openZoom({title: this._cardName, url: this._cardLink}));
+      this._openZoom(this));
 
     this._elementLike.addEventListener('click', () =>
-      this._handleChangeLikeStatus(this._cardID, this._hasMyLike, this._element, this));
+      this._handleChangeLikeStatus(this));
 
     if (this._myCard) {
       this._elementDelete.addEventListener('click', () =>
