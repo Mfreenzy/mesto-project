@@ -4,9 +4,8 @@ import {openPopup, closePopup} from "./components/modal";
 import {disableButton} from "./components/utils";
 import {setStatusOnButton} from "./components/utils";
 import {api} from "./components/api"
-import {Section} from "./components/SectionOOP";
-import {CardOOP} from "./components/CardOOP";
-
+import {Section} from "./components/Section";
+import {Card} from "./components/CardPlace";
 /*
 const elementsContainer = document.querySelector(".elements");
 const editContainer = document.querySelector(".popup__container_edit-container");
@@ -43,14 +42,14 @@ const avatarLink = document.querySelector(".popup__input_text__avatar-link");
 const profileAvatar = document.querySelector(".profile__avatar");
 const avProfile = document.querySelector(".popup_avatar");
 
-export let userID = null;
+export let userId = null;
 
 const sectionCards = new Section('.elements',
-  (card, myID) => {
-    const newCard = new CardOOP(
+  (card, myId) => {
+    const newCard = new Card(
       {card, handleDeleteCard, handleChangeLikeStatus, openZoom},
       '#element-image');
-    const cardElement = newCard.createElement(myID);
+    const cardElement = newCard.createElement(myId);
     sectionCards.addItem({element: cardElement});
   });
 
@@ -60,10 +59,10 @@ api.getInfo()
     profileNameInput.textContent = user.name;
     profileProf.textContent = user.about;
     profileAvatar.src = user.avatar;
-    userID = user._id;
+    userId = user._id;
     console.log(user);
     console.log(initialCards);
-    sectionCards.renderItems(initialCards, userID);
+    sectionCards.renderItems(initialCards, userId);
   })
   .catch((err) => {
     console.log(err)
@@ -100,10 +99,10 @@ function addFormSubmit(evt) {
     link: addLink.value,
   })
     .then((dataFromServer) => {
-      const newCard = new CardOOP(
+      const newCard = new Card(
         {card: dataFromServer, handleDeleteCard, handleChangeLikeStatus, openZoom},
         '#element-image');
-      const cardElement = newCard.createElement(userID);
+      const cardElement = newCard.createElement(userId);
       sectionCards.addItem({element: cardElement, isReverse: true});
       closePopup(addPopup);
       evt.target.reset();
@@ -164,43 +163,18 @@ closeButtons.forEach((button) => {
   });
 });
 
-const updateLikeStatus = (newElement, likesArray, userID, instance) => {
-  const likeButton = newElement.querySelector(".element__like");
-  const likesCounter = newElement.querySelector(".element__like-count");
-  likesCounter.textContent = likesArray.length;
-  instance._isLiked(likesArray);
-  instance._hasMyLike
-    ? likeButton.classList.add('element__like_active')
-    : likeButton.classList.remove('element__like_active');
-};
-
-
 export const handleChangeLikeStatus = (cardID, isLiked, newElement, instance) => {
   api.changeLikeStatus(cardID, isLiked)
     .then((dataFromServer) => {
-      updateLikeStatus(newElement, dataFromServer.likes, userID, instance);
+      instance.updateLikeValueInstance(dataFromServer.likes);
     }).catch((err) => {
     console.log(err);
   });
 };
 
-
-/*export const handleDeleteCard = (cardID, newElement) => {
-  api.deleteCard(cardID).then(() => {
-    newElement.remove();
-    newElement = null;
-  })
-    .catch((err) => {
-      console.log(err);
-    });
-};*/
-
 export const handleDeleteCard = (instance) => {
     api.deleteCard(instance.getCardId()).then(() => {
     instance.remove();
-      //removeCard(newElement); //Кочкина Екатерина - возможно лишняя функция
-/*    newElement.remove();
-    newElement = null;*/
   })
     .catch((err) => {
       console.log(err);
