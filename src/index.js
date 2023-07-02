@@ -135,7 +135,7 @@ const popupEdit = new PopupWithForm(
           popupEdit.putSavingProcessText();
           api.editUserProfile(user)
             .then((res) => {
-              userInfo.setUserInfo(res.name, res.about);
+              userInfo.setUserInfo({username:res.name, description:res.about});
               popupEdit.close();
             })
             .catch((err) => {
@@ -156,6 +156,7 @@ const popupEdit = new PopupWithForm(
 
 profileEditButton.addEventListener("click", () => {
         popupEdit.open()
+        profileEditValidate.resetValidate();
         const lastUserInfo = userInfo.getUserInfo();
         nameInput.value = lastUserInfo.username
         jobInput.value = lastUserInfo.description

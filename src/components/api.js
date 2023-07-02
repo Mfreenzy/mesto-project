@@ -80,7 +80,6 @@ class Api {
   // 9. Редактирование аватара профиля пользователя.
 
   editAvatar(editData) {
-    debugger;
       return fetch(`${this._baseUrl}/users/me/avatar`, {
           method: "PATCH",
           headers: this._headers,
