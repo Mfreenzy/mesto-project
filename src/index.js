@@ -1,6 +1,6 @@
 import "../src/pages/index.css";
-import { enableValidation } from "./components/validate";
-// import { openPopup, closePopup } from "./components/modal";
+//import { enableValidation } from "./components/validate";
+//import { openPopup, closePopup } from "./components/modal";
 import { addElementsContainer, elementsContainer, addPopup, updateLikeStatus, removeCard } from "./components/card";
 import { disableButton } from "./components/utils";
 // import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
@@ -8,7 +8,7 @@ import { setStatusOnButton } from "./components/utils";
 import { api }   from "./components/api"
 import { PopupWithForm } from "./components/popupWithForm";
 import { UserInfo } from "./components/userInfo";
-
+import { FormValidator } from "./components/formValidator";
 
 
 const editContainer = document.querySelector(".popup__container_edit-container");
@@ -55,26 +55,63 @@ api.getInfo()
     console.log(err)
 })
 
+const userInfo = new UserInfo({
+    usernameSelector: '.profile__name',
+    userDescriptionSelector: '.profile__prof',
+    userAvatarSelector: '.profile__avatar'
+  });
 
-function avatarSubmit(evt) {
-    evt.preventDefault();
-    console.log(avatarLink.value);
-    setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true });
-    api.editAvatar({
-        avatar: avatarLink.value,
-    }).then((data) => {
-        profileAvatar.src = data.avatar;
-        // subButton.textContent = "Сохранение..."
-        closePopup(avProfile);
-        evt.target.reset();
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    .finally(() => {
-        setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохранить', disabled: false })
-      })
-}
+  const popupAvatar = new PopupWithForm(
+    '.popup_avatar', {
+      callbackFormSubmit:
+        (user) => {
+          popupAvatar.putSavingProcessText();
+          api.editAvatar(user)
+            .then((res) => {
+              userInfo.setUserAvatar(res.avatar);
+              popupAvatar.close();
+            })
+            .catch((err) => {
+                console.log(`При обновлении аватара возникла ошибка, ${err}`)
+            })
+            .finally(() => {
+              popupAvatar.returnSavingProcessText();
+            })
+        }
+    });
+
+  popupAvatar.setEventListeners();
+
+//   const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
+//   profileAvatarEditValidate.enableValidation();
+//   Это экземпляр класса FormValidator 
+
+
+profileAvatarButton.addEventListener("click", () => {
+    popupAvatar.open();
+    disableButton(avatarSubmitButton);
+});
+
+
+// function avatarSubmit(evt) {
+//     evt.preventDefault();
+//     console.log(avatarLink.value);
+//     setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true });
+//     api.editAvatar({
+//         avatar: avatarLink.value,
+//     }).then((data) => {
+//         profileAvatar.src = data.avatar;
+//         // subButton.textContent = "Сохранение..."
+//         closePopup(avProfile);
+//         evt.target.reset();
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     })
+//     .finally(() => {
+//         setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохранить', disabled: false })
+//       })
+// }
 
 function addFormSubmit(evt) {
     evt.preventDefault();
@@ -132,19 +169,19 @@ addButton.addEventListener("click", (evt) => {
 
 formAddElement.addEventListener("submit", addFormSubmit);
 
-profileAvatarButton.addEventListener("click", () => {
-    openPopup(avProfile);
-    disableButton(avatarSubmitButton);
-});
+// profileAvatarButton.addEventListener("click", () => {
+//     openPopup(avProfile);
+//     disableButton(avatarSubmitButton);
+// });
 
-formAvatar.addEventListener("submit", avatarSubmit);
+// formAvatar.addEventListener("submit", avatarSubmit);
 
-closeButtons.forEach((button) => {
-    const popup = button.closest(".popup");
-    button.addEventListener("click", () => {
-        closePopup(popup);
-    });
-});
+// closeButtons.forEach((button) => {
+//     const popup = button.closest(".popup");
+//     button.addEventListener("click", () => {
+//         closePopup(popup);
+//     });
+// });
 
 export const handleChangeLikeStatus = (cardID, isLiked, newElement) => {
     api.changeLikeStatus(cardID, isLiked)
@@ -173,4 +210,3 @@ const settings = {
     errorClass: "popup__input-error_active",
 };
 
-enableValidation(settings);
