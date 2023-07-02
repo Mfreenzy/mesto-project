@@ -1,20 +1,22 @@
 .header__logo {
-    background-image: url(../../../images/logo.svg);
-    background-size: cover;
-    width: 142px;
-    height: 33px;
-    opacity: 1;
+  background-image: url(../../../images/logo-big-min.svg);
+  width: 142px;
+  height: 33px;
+  /*background-size: cover;*/ /*Кочкина - убрала размерность и прозрачность*/
+  /*  opacity: 1;*/
 }
 
-.header__logo:hover {
-    transition: opacity 2s ease-in-out;
-    opacity: 0.6;
-}
+/*Кочкина - убрала ховер он не нужен/
+/*.header__logo:hover {
+  transition: opacity 2s ease-in-out;
+  opacity: 0.6;
+}*/
 
 @media screen and (max-width: 1279px) {
-    .header__logo {
-        width: 103.74px;
-        height: 24.4px;
-        margin: 0 189.26px 0 27px;
-    }
+  .header__logo {
+    background-image: url(../../../images/logo-small-min.svg);
+    width: 103.74px;
+    height: 24.4px;
+    /* margin: 0 189.26px 0 27px;*/ /*Кочкина - убрала марджины добавила паддинги в хедере*/
+  }
 }
