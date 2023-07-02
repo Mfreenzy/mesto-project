@@ -1,5 +1,3 @@
-
-
 export class FormValidator {
     constructor(settings, formElement) {
         this._settings = settings;
@@ -37,7 +35,7 @@ export class FormValidator {
 
     // Метод проверки валидации форм
 
-    checkInputValidity(inputElement) {
+    _checkInputValidity(inputElement) {
         if (inputElement.validity.patternMismatch) {
             inputElement.setCustomValidity(inputElement.dataset.errorMessage);
         } else {
@@ -56,7 +54,7 @@ export class FormValidator {
         this._toggleButtonState();
 
         this._inputList.forEach((inputElement) => {
-            inputElement.addEventListener("input", function () {
+            inputElement.addEventListener("input",  () => {
                 this._checkInputValidity(inputElement);
                 this._toggleButtonState();
             });
@@ -73,7 +71,8 @@ export class FormValidator {
 
     // Публичный метод, который включает валидацию форм 
 
-    enableValidation(settings) {
+    enableValidation() {
+        this._formElement.addEventListener('submit', (e) => e.preventDefault());
         this._setEventListeners();
     }
 

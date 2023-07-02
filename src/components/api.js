@@ -1,6 +1,6 @@
 class Api {
   constructor({ baseUrl, headers }) {
-      this._link = baseUrl;
+      this._baseUrl = baseUrl;
       this._headers = headers;
   }
 
@@ -17,7 +17,7 @@ class Api {
   // 2. Получение профиля пользователя.
 
   getUserProfile() {
-      return fetch(`${this._link}/users/me`, {
+      return fetch(`${this._baseUrl}/users/me`, {
           headers: this._headers,
       }).then((res) => this._checkResponse(res));
   }
@@ -25,7 +25,7 @@ class Api {
   // 3. Получение начальных карточек.
 
   getInitialCards() {
-      return fetch(`${this._link}/cards`, {
+      return fetch(`${this._baseUrl}/cards`, {
           headers: this._headers,
       }).then((res) => this._checkResponse(res));
   }
@@ -38,18 +38,21 @@ class Api {
 
   // 5. Редактирование профиля пользователя.
 
-  editUserProfile(editData) {
-      return fetch(`${this._link}/users/me`, {
+  editUserProfile({username, description}) {
+      return fetch(`${this._baseUrl}/users/me`, {
           method: "PATCH",
           headers: this._headers,
-          body: JSON.stringify(editData),
+          body: JSON.stringify({
+            name: username,
+            about: description
+          }),
       }).then((res) => this._checkResponse(res));
   }
 
   // 6. Добавление карточек.
 
   addCard(addData) {
-      return fetch(`${this._link}/cards`, {
+      return fetch(`${this._baseUrl}/cards`, {
           headers: this._headers,
           method: "POST",
           body: JSON.stringify(addData),
@@ -59,7 +62,7 @@ class Api {
   // 7. Удаление карточек.
 
   deleteCard(dataID) {
-      return fetch(`${this._link}/cards/${dataID}`, {
+      return fetch(`${this._baseUrl}/cards/${dataID}`, {
           method: "DELETE",
           headers: this._headers,
       }).then((res) => this._checkResponse(res));
@@ -68,7 +71,7 @@ class Api {
   // 8. Изменение статуса кнопки "Like".
 
   changeLikeStatus(dataID, isLike) {
-      return fetch(`${this._link}/cards/likes/${dataID}`, {
+      return fetch(`${this._baseUrl}/cards/likes/${dataID}`, {
           method: isLike ? "DELETE" : "PUT",
           headers: this._headers,
       }).then((res) => this._checkResponse(res));
@@ -77,7 +80,8 @@ class Api {
   // 9. Редактирование аватара профиля пользователя.
 
   editAvatar(editData) {
-      return fetch(`${this._link}/users/me/avatar`, {
+    debugger;
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
           method: "PATCH",
           headers: this._headers,
           body: JSON.stringify(editData),

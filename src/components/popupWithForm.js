@@ -38,7 +38,7 @@ export class PopupWithForm extends Popup {
  // Метод добавления стандартного текста кнопке
 
     returnSavingProcessText() {
-          this._subButton.textContent = this._submitButtonText;
+          this._subButton.textContent = this._subButtonText;
         }
 
 // Метод закрытия popup (перезаписывает родителя)

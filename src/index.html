@@ -50,6 +50,7 @@
                     <form id="form" class="popup__name popup__name_edit-name" novalidate>
                         <label class="popup__label">
                             <input
+                                name ="username"
                                 type="text"
                                 pattern="^[A-Za-zА-Яа-яЁё\s\-]+$"
                                 id="ed-name"
@@ -65,6 +66,7 @@
                         </label>
                         <label class="popup__label">
                             <input
+                                name ="description"
                                 type="text"
                                 pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$"
                                 id="ed-prof"
@@ -116,7 +118,7 @@
                     <h2 class="popup__title popup__title_avatar">Обновить аватар</h2>
                     <form id="form" class="popup__name popup__name_avatar" novalidate>
                         <label class="popup__label">
-                            <input type="url" id="avatar-link" class="popup__input popup__input_text__avatar-link" value="" placeholder="Ссылка на картинку-аватар" required />
+                            <input name="avatar" type="url" id="avatar-link" class="popup__input popup__input_text__avatar-link" value="" placeholder="Ссылка на картинку-аватар" required />
                             <span class="avatar-link-error popup__input-error">Поле пустое</span>
                         </label>
                         <button type="submit" id="avatar-submit" class="popup__submit popup__submit_invalid popup__submit_avatar-submit">Сохранить</button>

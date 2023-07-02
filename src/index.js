@@ -38,6 +38,23 @@ const avatarLink = document.querySelector(".popup__input_text__avatar-link");
 const profileAvatar = document.querySelector(".profile__avatar");
 const avProfile = document.querySelector(".popup_avatar");
 
+
+const settings = {
+    formSelector: ".popup__name",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__submit",
+    inactiveButtonClass: "popup__submit_invalid",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__input-error_active",
+};
+
+const userInfo = new UserInfo({
+    usernameSelector: '.profile__name',
+    userDescriptionSelector: '.profile__prof',
+    userAvatarSelector: '.profile__avatar'
+  });
+
+
 let userID = null;
 
 api.getInfo()
@@ -55,13 +72,9 @@ api.getInfo()
     console.log(err)
 })
 
-const userInfo = new UserInfo({
-    usernameSelector: '.profile__name',
-    userDescriptionSelector: '.profile__prof',
-    userAvatarSelector: '.profile__avatar'
-  });
 
-  const popupAvatar = new PopupWithForm(
+
+const popupAvatar = new PopupWithForm(
     '.popup_avatar', {
       callbackFormSubmit:
         (user) => {
@@ -82,36 +95,16 @@ const userInfo = new UserInfo({
 
   popupAvatar.setEventListeners();
 
-//   const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
-//   profileAvatarEditValidate.enableValidation();
+  const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
+  profileAvatarEditValidate.enableValidation();
 //   Это экземпляр класса FormValidator 
 
 
 profileAvatarButton.addEventListener("click", () => {
     popupAvatar.open();
-    disableButton(avatarSubmitButton);
+    profileAvatarEditValidate.resetValidate();
 });
 
-
-// function avatarSubmit(evt) {
-//     evt.preventDefault();
-//     console.log(avatarLink.value);
-//     setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true });
-//     api.editAvatar({
-//         avatar: avatarLink.value,
-//     }).then((data) => {
-//         profileAvatar.src = data.avatar;
-//         // subButton.textContent = "Сохранение..."
-//         closePopup(avProfile);
-//         evt.target.reset();
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     })
-//     .finally(() => {
-//         setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохранить', disabled: false })
-//       })
-// }
 
 function addFormSubmit(evt) {
     evt.preventDefault();
@@ -135,32 +128,68 @@ function addFormSubmit(evt) {
           })
 }
 
-function handleFormSubmit(evt) {
-    evt.preventDefault();
-    setStatusOnButton({ buttonElement: submitButton, text: 'Сохраняем...', disabled: true })
-    api.editUserProfile({
-        name: nameInput.value,
-        about: jobInput.value,
-    }).then((data) => {
-        profileNameInput.textContent = data.name;
-        profileProf.textContent = data.about;
-        closePopup(editProfile);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    .finally(() => {
-        setStatusOnButton({ buttonElement: submitButton, text: 'Сохранить', disabled: false })
-      })
-}
+const popupEdit = new PopupWithForm(
+    '.popup_edit-profile', {
+      callbackFormSubmit:
+        (user) => {
+          popupEdit.putSavingProcessText();
+          api.editUserProfile(user)
+            .then((res) => {
+              userInfo.setUserInfo(res.name, res.about);
+              popupEdit.close();
+            })
+            .catch((err) => {
+                console.log(`При обновлении профиля возникла ошибка, ${err}`)
+            })
+            .finally(() => {
+              popupEdit.returnSavingProcessText();
+            })
+        }
+    });
+
+  popupEdit.setEventListeners();
+
+  const profileEditValidate = new FormValidator(settings, formEdit);
+  profileEditValidate.enableValidation();
+//   Это экземпляр класса FormValidator 
+
 
 profileEditButton.addEventListener("click", () => {
-    openPopup(editProfile);
-    nameInput.value = profileNameInput.textContent;
-    jobInput.value = profileProf.textContent;
-});
+        popupEdit.open()
+        const lastUserInfo = userInfo.getUserInfo();
+        nameInput.value = lastUserInfo.username
+        jobInput.value = lastUserInfo.description
+})
 
-formEdit.addEventListener("submit", handleFormSubmit);
+
+
+
+// function handleFormSubmit(evt) {
+//     evt.preventDefault();
+//     setStatusOnButton({ buttonElement: submitButton, text: 'Сохраняем...', disabled: true })
+//     api.editUserProfile({
+//         name: nameInput.value,
+//         about: jobInput.value,
+//     }).then((data) => {
+//         profileNameInput.textContent = data.name;
+//         profileProf.textContent = data.about;
+//         closePopup(editProfile);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     })
+//     .finally(() => {
+//         setStatusOnButton({ buttonElement: submitButton, text: 'Сохранить', disabled: false })
+//       })
+// }
+
+// profileEditButton.addEventListener("click", () => {
+//     openPopup(editProfile);
+//     nameInput.value = profileNameInput.textContent;
+//     jobInput.value = profileProf.textContent;
+// });
+
+// formEdit.addEventListener("submit", handleFormSubmit);
 
 addButton.addEventListener("click", (evt) => {
     openPopup(addPopup);
@@ -201,12 +230,4 @@ export const handleDeleteCard = (cardID, newElement) => {
     });
 };
 
-const settings = {
-    formSelector: ".popup__name",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__submit",
-    inactiveButtonClass: "popup__submit_invalid",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__input-error_active",
-};
 
