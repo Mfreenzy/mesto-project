@@ -1,9 +1,6 @@
 import "../src/pages/index.css";
-//import { enableValidation } from "./components/validate";
-//import { openPopup, closePopup } from "./components/modal";
 import { addElementsContainer, elementsContainer, addPopup, updateLikeStatus, removeCard } from "./components/card";
 import { disableButton } from "./components/utils";
-// import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
 import { setStatusOnButton } from "./components/utils";
 import { api }   from "./components/api"
 import { PopupWithForm } from "./components/popupWithForm";
@@ -72,39 +69,80 @@ api.getInfo()
     console.log(err)
 })
 
+// 1.Экземпляр класса PopupWithForm для попапа аватара пользователя.
 
-
-const popupAvatar = new PopupWithForm(
-    '.popup_avatar', {
-      callbackFormSubmit:
-        (user) => {
-          popupAvatar.putSavingProcessText();
-          api.editAvatar(user)
-            .then((res) => {
+const popupAvatar = new PopupWithForm(".popup_avatar", {
+  callbackFormSubmit: (user) => {
+      popupAvatar.putStatusOnButton();
+      api.editAvatar(user)
+          .then((res) => {
               userInfo.setUserAvatar(res.avatar);
               popupAvatar.close();
-            })
-            .catch((err) => {
-                console.log(`При обновлении аватара возникла ошибка, ${err}`)
-            })
-            .finally(() => {
-              popupAvatar.returnSavingProcessText();
-            })
-        }
-    });
-
-  popupAvatar.setEventListeners();
-
-  const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
-  profileAvatarEditValidate.enableValidation();
-//   Это экземпляр класса FormValidator 
-
-
-profileAvatarButton.addEventListener("click", () => {
-    popupAvatar.open();
-    profileAvatarEditValidate.resetValidate();
+          })
+          .catch((err) => {
+              console.log(`При обновлении аватара возникла ошибка, ${err}`);
+          })
+          .finally(() => {
+              popupAvatar.returnStatusOnButton();
+          });
+  },
 });
 
+// 1.1. Вызов setEventListeners для попапа аватара пользователя.
+
+popupAvatar.setEventListeners();
+
+// 1.2. Валидация попапа аватара пользователя.
+
+const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
+profileAvatarEditValidate.enableValidation();
+
+// 1.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+profileAvatarButton.addEventListener("click", () => {
+  popupAvatar.open();
+  profileAvatarEditValidate.resetValidate();
+});
+
+// 2. Экземпляр класса PopupWithForm для попапа редактирования данных пользователя.
+
+const popupEdit = new PopupWithForm(".popup_edit-profile", {
+  callbackFormSubmit: (user) => {
+      popupEdit.putStatusOnButton();
+      api.editUserProfile(user)
+          .then((res) => {
+              userInfo.setUserInfo({ username: res.name, description: res.about });
+              popupEdit.close();
+          })
+          .catch((err) => {
+              console.log(`При обновлении профиля возникла ошибка, ${err}`);
+          })
+          .finally(() => {
+              popupEdit.returnStatusOnButton();
+          });
+  },
+});
+
+// 2.1. Вызов setEventListeners для попапа редактирования данных пользователя.
+
+popupEdit.setEventListeners();
+
+// 2.2. Валидация попапа редактирования данных пользователя.
+
+const profileEditValidate = new FormValidator(settings, formEdit);
+profileEditValidate.enableValidation();
+
+// 2.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+profileEditButton.addEventListener("click", () => {
+  popupEdit.open();
+  profileEditValidate.resetValidate();
+  const lastUserInfo = userInfo.getUserInfo();
+  nameInput.value = lastUserInfo.username;
+  jobInput.value = lastUserInfo.description;
+});
+
+// 3. Экземпляр класса PopupWithForm для попапа добавления карточки.
 
 function addFormSubmit(evt) {
     evt.preventDefault();
@@ -128,69 +166,11 @@ function addFormSubmit(evt) {
           })
 }
 
-const popupEdit = new PopupWithForm(
-    '.popup_edit-profile', {
-      callbackFormSubmit:
-        (user) => {
-          popupEdit.putSavingProcessText();
-          api.editUserProfile(user)
-            .then((res) => {
-              userInfo.setUserInfo({username:res.name, description:res.about});
-              popupEdit.close();
-            })
-            .catch((err) => {
-                console.log(`При обновлении профиля возникла ошибка, ${err}`)
-            })
-            .finally(() => {
-              popupEdit.returnSavingProcessText();
-            })
-        }
-    });
-
-  popupEdit.setEventListeners();
-
-  const profileEditValidate = new FormValidator(settings, formEdit);
-  profileEditValidate.enableValidation();
-//   Это экземпляр класса FormValidator 
-
-
-profileEditButton.addEventListener("click", () => {
-        popupEdit.open()
-        profileEditValidate.resetValidate();
-        const lastUserInfo = userInfo.getUserInfo();
-        nameInput.value = lastUserInfo.username
-        jobInput.value = lastUserInfo.description
-})
 
 
 
 
-// function handleFormSubmit(evt) {
-//     evt.preventDefault();
-//     setStatusOnButton({ buttonElement: submitButton, text: 'Сохраняем...', disabled: true })
-//     api.editUserProfile({
-//         name: nameInput.value,
-//         about: jobInput.value,
-//     }).then((data) => {
-//         profileNameInput.textContent = data.name;
-//         profileProf.textContent = data.about;
-//         closePopup(editProfile);
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//     })
-//     .finally(() => {
-//         setStatusOnButton({ buttonElement: submitButton, text: 'Сохранить', disabled: false })
-//       })
-// }
 
-// profileEditButton.addEventListener("click", () => {
-//     openPopup(editProfile);
-//     nameInput.value = profileNameInput.textContent;
-//     jobInput.value = profileProf.textContent;
-// });
-
-// formEdit.addEventListener("submit", handleFormSubmit);
 
 addButton.addEventListener("click", (evt) => {
     openPopup(addPopup);
@@ -199,19 +179,7 @@ addButton.addEventListener("click", (evt) => {
 
 formAddElement.addEventListener("submit", addFormSubmit);
 
-// profileAvatarButton.addEventListener("click", () => {
-//     openPopup(avProfile);
-//     disableButton(avatarSubmitButton);
-// });
 
-// formAvatar.addEventListener("submit", avatarSubmit);
-
-// closeButtons.forEach((button) => {
-//     const popup = button.closest(".popup");
-//     button.addEventListener("click", () => {
-//         closePopup(popup);
-//     });
-// });
 
 export const handleChangeLikeStatus = (cardID, isLiked, newElement) => {
     api.changeLikeStatus(cardID, isLiked)

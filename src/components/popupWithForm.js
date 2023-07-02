@@ -31,13 +31,13 @@ export class PopupWithForm extends Popup {
         }
 // Метод добавления кнопке текста в момент сохранения
 
-    putSavingProcessText() {
+    putStatusOnButton() {
           this._subButton.textContent = 'Сохранение...';
         }
 
  // Метод добавления стандартного текста кнопке
 
-    returnSavingProcessText() {
+    returnStatusOnButton() {
           this._subButton.textContent = this._subButtonText;
         }
 
