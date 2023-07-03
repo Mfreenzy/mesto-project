@@ -1,15 +1,14 @@
 import {userId} from "../index";
 
-
 export class Card {
-  constructor({card, handleDeleteCard, handleChangeLikeStatus, openZoom}, selector) {
+  constructor({card, handleDeleteCard, handleChangeLikeStatus, openZoom}, selectorTemplate) {
     this._userID = userId;
     this._cardLink = card.link;
     this._cardName = card.name;
     this._cardID = card._id;
     this._cardLikes = card.likes;
     this._ownerId = card.owner._id;
-    this._selector = selector;
+    this._selector = selectorTemplate;
     this._handleDeleteCard = handleDeleteCard;
     this._handleChangeLikeStatus = handleChangeLikeStatus;
     this._openZoom = openZoom;
@@ -19,7 +18,7 @@ export class Card {
     return document
       .querySelector(this._selector)
       .content
-      .querySelector('.element')
+      .firstElementChild       //Кочкина Екатиерина - было //.querySelector('.element')
       .cloneNode(true);
   }
 

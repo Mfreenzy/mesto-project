@@ -5,7 +5,7 @@ import {disableButton} from "./components/utils";
 import {setStatusOnButton} from "./components/utils";
 import {api} from "./components/api"
 import {Section} from "./components/Section";
-import {Card} from "./components/CardPlace";
+import {Card} from "./components/Card";
 /*
 const elementsContainer = document.querySelector(".elements");
 const editContainer = document.querySelector(".popup__container_edit-container");
