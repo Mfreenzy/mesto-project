@@ -1,20 +1,20 @@
 .elements {
-    max-width: 880px;
-    display: grid;
-    grid-template-columns: repeat(3, 282px);
-    grid-template-rows: repeat(999, 361px);
-    gap: 21px 17px;
-    margin: 0 200px;
-    padding: 0 0 66px 0;
+  max-width: 880px;
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  /*grid-template-rows: repeat(999, 361px);*/ /*Кочкина Екатерина карточки имеют фиксированный размер изменения в element */
+  gap: 21px 17px;
+  margin: 0 200px;
+  padding: 0 0 66px 0;
 }
 
 @media screen and (max-width: 1279px) {
-    .elements {
-        max-width: 282px;
-        grid-template-columns: 282px;
-        grid-template-rows: repeat(999, 361px);
-        gap: 21px;
-        margin: 0 19px;
-        padding: 0 0 48px 0;
-    }
+  .elements {
+    max-width: 282px;
+    grid-template-columns: 282px;
+    /*grid-template-rows: repeat(999, 361px);*/ /*Кочкина Екатерина карточки имеют фиксированный размер изменения в element */
+    gap: 21px;
+    margin: 0 19px;
+    padding: 0 0 48px 0;
+  }
 }
