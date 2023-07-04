@@ -20,7 +20,13 @@ const avatarContainer = document.querySelector(".popup__container_avatar");
 const avatarClose = document.querySelector(".popup__close_avatar");
 const avatarLink = document.querySelector(".popup__input_text__avatar-link");
 */
-
+/*//Кочкина Екатерина - не нужные константы - версия 2
+const submitButton = document.querySelector(".popup__submit_edit-submit");
+const closeButtons = document.querySelectorAll(".popup__close");
+const editProfile = document.querySelector(".popup_edit-profile");
+const avatarSubmitButton = document.querySelector(".popup__submit_avatar-submit");
+const avProfile = document.querySelector(".popup_avatar");
+*/
 
 const addPopup = document.querySelector(".popup_add-popup");
 const crdPopup = document.querySelector(".popup_card-popup");
@@ -28,23 +34,19 @@ const crdPopupImage = document.querySelector(".popup__image_card-image");
 const crdPopupTitle = document.querySelector(".popup__textbox_card-textbox");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const formEdit = document.querySelector(".popup__name_edit-name");
-const submitButton = document.querySelector(".popup__submit_edit-submit");
 const addButton = document.querySelector(".profile__add-button");
 const formAddElement = document.querySelector(".popup__name_add-name");
 const submitAddButton = document.querySelector(".popup__submit_add-submit");
-const closeButtons = document.querySelectorAll(".popup__close");
 const profileNameInput = document.querySelector(".profile__name");
 const profileProf = document.querySelector(".profile__prof");
 const nameInput = document.querySelector(".popup__input_text_ed-name");
 const jobInput = document.querySelector(".popup__input_text_ed-prof");
-const editProfile = document.querySelector(".popup_edit-profile");
 const addNameInput = document.querySelector(".popup__input_text_ad-name");
 const addLink = document.querySelector(".popup__input_text__ad-link");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const formAvatar = document.querySelector(".popup__name_avatar");
-const avatarSubmitButton = document.querySelector(".popup__submit_avatar-submit");
 const profileAvatar = document.querySelector(".profile__avatar");
-const avProfile = document.querySelector(".popup_avatar");
+
 
 export let userId = null;
 
@@ -196,7 +198,7 @@ addButton.addEventListener("click", () => {
 
 formAddElement.addEventListener("submit", addFormSubmit);
 
-//<<<<<<< pair-programming/cards-cat
+//<<<<<<< pair-programming/cards-cat // Кочкина Екатерина - удалил, вроде больше не надо
 /*profileAvatarButton.addEventListener("click", () => {
   openPopup(avProfile);
   disableButton(avatarSubmitButton);
