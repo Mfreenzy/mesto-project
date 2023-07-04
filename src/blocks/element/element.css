@@ -1,11 +1,13 @@
 .element {
-    position: relative;
-    max-width: 282px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border-radius: 10px;
-    align-items: center;
-    row-gap: 25px;
+  position: relative;
+  /*max-width: 282px;*/ /*Кочкина Екатерина - карточка имеет фиксированный размер*/
+  width: 282px;
+  height: 361px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  align-items: center;
+  row-gap: 25px;
 }
