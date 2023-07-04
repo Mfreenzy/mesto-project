@@ -51,14 +51,11 @@ class Api {
 
   // 6. Добавление карточек.
 
-  addCard({placename, placelink}) {
+  addCard(addData) {
       return fetch(`${this._baseUrl}/cards`, {
           headers: this._headers,
           method: "POST",
-          body: JSON.stringify({
-            name: placename,
-            link: placelink
-          }),
+          body: JSON.stringify(addData),
       }).then((res) => this._checkResponse(res));
   }
 

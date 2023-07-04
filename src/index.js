@@ -168,10 +168,14 @@ const popupAddCard = new PopupWithForm(".popup_add-popup", {
 callbackFormSubmit: (formValues) => {
   popupAddCard.putStatusOnButton();
   api.addCard({
-    placename: formValues.name,
-    placelink: formValues.link
+    name: addNameInput.value,
+    link: addLink.value,
   }).then((res) =>{
-    sectionCards.addItem({placename: res.name, placelink: res.link})
+    const newCard = new Card(
+              {card: res, handleDeleteCard, handleChangeLikeStatus, openZoom},
+              '#element-image');
+            const cardElement = newCard.createElement(userId);
+            sectionCards.addItem({element: cardElement, isReverse: true});
     popupAddCard.close()
   }).catch((err) => {
     console.log(`При добавлении изображения возникла ошибка, ${err}`);
