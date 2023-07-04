@@ -164,39 +164,72 @@ profileEditButton.addEventListener("click", () => {
 
 // 3. Экземпляр класса PopupWithForm для попапа добавления карточки.
 
-
-function addFormSubmit(evt) {
-  evt.preventDefault();
-  console.log(addNameInput.value);
-  console.log(addLink.value);
-  setStatusOnButton({buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true});
+const popupAddCard = new PopupWithForm(".popup_add-popup", {
+callbackFormSubmit: (formValues) => {
+  popupAddCard.putStatusOnButton();
   api.addCard({
-    name: addNameInput.value,
-    link: addLink.value,
+    placename: formValues.name,
+    placelink: formValues.link
+  }).then((res) =>{
+    sectionCards.addItem({placename: res.name, placelink: res.link})
+    popupAddCard.close()
+  }).catch((err) => {
+    console.log(`При добавлении изображения возникла ошибка, ${err}`);
   })
-    .then((dataFromServer) => {
-      const newCard = new Card(
-        {card: dataFromServer, handleDeleteCard, handleChangeLikeStatus, openZoom},
-        '#element-image');
-      const cardElement = newCard.createElement(userId);
-      sectionCards.addItem({element: cardElement, isReverse: true});
-      closePopup(addPopup);
-      evt.target.reset();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      setStatusOnButton({buttonElement: submitAddButton, text: 'Сохранить', disabled: false})
-    })
-}
-
-addButton.addEventListener("click", () => {
-  openPopup(addPopup);
-  disableButton(submitAddButton);
+  .finally(() => {
+    popupAddCard.returnStatusOnButton();
+  });
+},
 });
 
-formAddElement.addEventListener("submit", addFormSubmit);
+// 3.1. Вызов setEventListeners для попапа редактирования данных пользователя.
+
+popupAddCard.setEventListeners();
+
+// 3.2. Валидация попапа редактирования данных пользователя.
+
+const profileAddCardValidate = new FormValidator(settings, formAddElement);
+profileAddCardValidate.enableValidation();
+
+// 3.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+addButton.addEventListener("click", () => {
+    popupAddCard.open();
+    profileAddCardValidate.resetValidate();
+});
+
+// function addFormSubmit(evt) {
+//   evt.preventDefault();
+//   console.log(addNameInput.value);
+//   console.log(addLink.value);
+//   setStatusOnButton({buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true});
+//   api.addCard({
+//     name: addNameInput.value,
+//     link: addLink.value,
+//   })
+//     .then((dataFromServer) => {
+//       const newCard = new Card(
+//         {card: dataFromServer, handleDeleteCard, handleChangeLikeStatus, openZoom},
+//         '#element-image');
+//       const cardElement = newCard.createElement(userId);
+//       sectionCards.addItem({element: cardElement, isReverse: true});
+//       closePopup(addPopup);
+//       evt.target.reset();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//     .finally(() => {
+//       setStatusOnButton({buttonElement: submitAddButton, text: 'Сохранить', disabled: false})
+//     })
+// }
+
+// addButton.addEventListener("click", () => {
+//   openPopup(addPopup);
+//   disableButton(submitAddButton);
+// });
+
+// formAddElement.addEventListener("submit", addFormSubmit);
 
 //<<<<<<< pair-programming/cards-cat // Кочкина Екатерина - удалил, вроде больше не надо
 /*profileAvatarButton.addEventListener("click", () => {
@@ -241,5 +274,5 @@ const openZoom = (instance) => {
   crdPopupImage.alt = title;
 }
 
-enableValidation(settings);
-//=======
+// enableValidation(settings);
+// //=======

@@ -91,6 +91,7 @@
                     <form id="form" class="popup__name popup__name_add-name" novalidate>
                         <label class="popup__label">
                             <input
+                                name = "placename"
                                 type="text"
                                 pattern="^[A-Za-zА-Яа-яЁё\s\-\0-9]+$"
                                 id="ad-name"
@@ -105,7 +106,7 @@
                             <span class="ad-name-error popup__input-error">Поле пустое</span>
                         </label>
                         <label class="popup__label">
-                            <input type="url" id="ad-link" class="popup__input popup__input_text__ad-link" value="" placeholder="Ссылка на картинку" required />
+                            <input name="placelink" type="url" id="ad-link" class="popup__input popup__input_text__ad-link" value="" placeholder="Ссылка на картинку" required />
                             <span class="ad-link-error popup__input-error">Поле пустое</span>
                         </label>
                         <button type="submit" id="ad-submit" class="popup__submit popup__submit_invalid popup__submit_add-submit">Сохранить</button>

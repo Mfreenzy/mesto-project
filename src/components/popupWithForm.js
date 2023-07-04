@@ -13,11 +13,11 @@ export class PopupWithForm extends Popup {
 // Метод сборки данных всех полей формы 
 
     _getInputValues() {
-        this._formValues = {};
+        this.formValues = {};
         this._inputList.forEach(inputItem => {
-            this._formValues[inputItem.name] = inputItem.value;
+            this.formValues[inputItem.name] = inputItem.value;
         });
-        return this._formValues;
+        return this.formValues;
     }
 
 // Метод setEventListeners, связь с _getInputValues
