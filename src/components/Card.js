@@ -2,7 +2,7 @@ import {userId} from "../index";
 
 export class Card {
   constructor({card, handleDeleteCard, handleChangeLikeStatus, openZoom}, selectorTemplate) {
-    this._userID = userId;
+    this._userId = userId;
     this._cardLink = card.link;
     this._cardName = card.name;
     this._cardID = card._id;
@@ -47,7 +47,7 @@ export class Card {
   _checkMyLike() {
     return  Boolean(
       this._cardLikes.find((likeObj) => {
-        return likeObj._id === this._userID;
+        return likeObj._id === this._userId;
       })
     );
   }

@@ -3,23 +3,22 @@ import "../src/pages/index.css";
 import {enableValidation} from "./components/validate";
 import {openPopup, closePopup} from "./components/modal";
 import {disableButton, setStatusOnButton} from "./components/utils";
-import { PopupWithForm } from "./components/popupWithForm";
-import { UserInfo } from "./components/userInfo";
-import { FormValidator } from "./components/formValidator";
+import {PopupWithForm} from "./components/popupWithForm";
+import {UserInfo} from "./components/userInfo";
+import {FormValidator} from "./components/formValidator";
 import {api} from "./components/api"
 import {Section} from "./components/Section";
 import {Card} from "./components/Card";
 
+/* //Кочкина Екатерина - не нужные константы
 const elementsContainer = document.querySelector(".elements");
-
-
-/*
 const editContainer = document.querySelector(".popup__container_edit-container");
 const editClose = document.querySelector(".popup__close_edit-close");
 const addPopupClose = document.querySelector(".popup__close_add-close");
 const popups = document.querySelectorAll(".popup");
 const avatarContainer = document.querySelector(".popup__container_avatar");
 const avatarClose = document.querySelector(".popup__close_avatar");
+const avatarLink = document.querySelector(".popup__input_text__avatar-link");
 */
 
 
@@ -44,7 +43,6 @@ const addLink = document.querySelector(".popup__input_text__ad-link");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const formAvatar = document.querySelector(".popup__name_avatar");
 const avatarSubmitButton = document.querySelector(".popup__submit_avatar-submit");
-const avatarLink = document.querySelector(".popup__input_text__avatar-link");
 const profileAvatar = document.querySelector(".profile__avatar");
 const avProfile = document.querySelector(".popup_avatar");
 
@@ -59,25 +57,20 @@ const sectionCards = new Section('.elements',
     sectionCards.addItem({element: cardElement});
   });
 
-
 const settings = {
-    formSelector: ".popup__name",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__submit",
-    inactiveButtonClass: "popup__submit_invalid",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__input-error_active",
+  formSelector: ".popup__name",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit",
+  inactiveButtonClass: "popup__submit_invalid",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
 };
 
 const userInfo = new UserInfo({
-    usernameSelector: '.profile__name',
-    userDescriptionSelector: '.profile__prof',
-    userAvatarSelector: '.profile__avatar'
-  });
-
-
-let userID = null;
-
+  usernameSelector: '.profile__name',
+  userDescriptionSelector: '.profile__prof',
+  userAvatarSelector: '.profile__avatar'
+});
 
 api.getInfo()
 
@@ -94,22 +87,22 @@ api.getInfo()
     console.log(err)
   })
 
-// 1.Экземпляр класса PopupWithForm для попапа аватара пользователя.
+// 1. Экземпляр класса PopupWithForm для попапа аватара пользователя.
 
 const popupAvatar = new PopupWithForm(".popup_avatar", {
   callbackFormSubmit: (user) => {
-      popupAvatar.putStatusOnButton();
-      api.editAvatar(user)
-          .then((res) => {
-              userInfo.setUserAvatar(res.avatar);
-              popupAvatar.close();
-          })
-          .catch((err) => {
-              console.log(`При обновлении аватара возникла ошибка, ${err}`);
-          })
-          .finally(() => {
-              popupAvatar.returnStatusOnButton();
-          });
+    popupAvatar.putStatusOnButton();
+    api.editAvatar(user)
+      .then((res) => {
+        userInfo.setUserAvatar(res.avatar);
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log(`При обновлении аватара возникла ошибка, ${err}`);
+      })
+      .finally(() => {
+        popupAvatar.returnStatusOnButton();
+      });
   },
 });
 
@@ -133,18 +126,18 @@ profileAvatarButton.addEventListener("click", () => {
 
 const popupEdit = new PopupWithForm(".popup_edit-profile", {
   callbackFormSubmit: (user) => {
-      popupEdit.putStatusOnButton();
-      api.editUserProfile(user)
-          .then((res) => {
-              userInfo.setUserInfo({ username: res.name, description: res.about });
-              popupEdit.close();
-          })
-          .catch((err) => {
-              console.log(`При обновлении профиля возникла ошибка, ${err}`);
-          })
-          .finally(() => {
-              popupEdit.returnStatusOnButton();
-          });
+    popupEdit.putStatusOnButton();
+    api.editUserProfile(user)
+      .then((res) => {
+        userInfo.setUserInfo({username: res.name, description: res.about});
+        popupEdit.close();
+      })
+      .catch((err) => {
+        console.log(`При обновлении профиля возникла ошибка, ${err}`);
+      })
+      .finally(() => {
+        popupEdit.returnStatusOnButton();
+      });
   },
 });
 
@@ -196,34 +189,7 @@ function addFormSubmit(evt) {
     })
 }
 
-//<<<<<<< pair-programming/cards-cat
-function handleFormSubmit(evt) {
-  evt.preventDefault();
-  setStatusOnButton({buttonElement: submitButton, text: 'Сохраняем...', disabled: true})
-  api.editUserProfile({
-    name: nameInput.value,
-    about: jobInput.value,
-  }).then((data) => {
-    profileNameInput.textContent = data.name;
-    profileProf.textContent = data.about;
-    closePopup(editProfile);
-  })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      setStatusOnButton({buttonElement: submitButton, text: 'Сохранить', disabled: false})
-    })
-}
-
-profileEditButton.addEventListener("click", () => {
-  openPopup(editProfile);
-  nameInput.value = profileNameInput.textContent;
-  jobInput.value = profileProf.textContent;
-});
-//=======
-
-addButton.addEventListener("click", (evt) => {
+addButton.addEventListener("click", () => {
   openPopup(addPopup);
   disableButton(submitAddButton);
 });
@@ -231,22 +197,22 @@ addButton.addEventListener("click", (evt) => {
 formAddElement.addEventListener("submit", addFormSubmit);
 
 //<<<<<<< pair-programming/cards-cat
-profileAvatarButton.addEventListener("click", () => {
+/*profileAvatarButton.addEventListener("click", () => {
   openPopup(avProfile);
   disableButton(avatarSubmitButton);
-});
+});*/
 
-formAvatar.addEventListener("submit", avatarSubmit);
+//formAvatar.addEventListener("submit", avatarSubmit); // Кочкина Екатерина - после слияния этот код лишний
 
-closeButtons.forEach((button) => {
+/*closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => {
     closePopup(popup);
   });
-});
+});*/
 //=======
 
-export const handleChangeLikeStatus = (/*cardID, isLiked, newElement, */instance) => {
+export const handleChangeLikeStatus = (instance) => {
   api.changeLikeStatus(instance.getCardId(), instance.getHasMyLike())
     .then((dataFromServer) => {
       instance.updateLikeValueInstance(dataFromServer.likes);
@@ -256,7 +222,7 @@ export const handleChangeLikeStatus = (/*cardID, isLiked, newElement, */instance
 };
 
 export const handleDeleteCard = (instance) => {
-    api.deleteCard(instance.getCardId()).then(() => {
+  api.deleteCard(instance.getCardId()).then(() => {
     instance.remove();
   })
     .catch((err) => {
