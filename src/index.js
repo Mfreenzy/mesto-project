@@ -1,13 +1,19 @@
 import "../src/pages/index.css";
+//<<<<<<< pair-programming/cards-cat
 import {enableValidation} from "./components/validate";
 import {openPopup, closePopup} from "./components/modal";
-import {disableButton} from "./components/utils";
-import {setStatusOnButton} from "./components/utils";
+import {disableButton, setStatusOnButton} from "./components/utils";
+import { PopupWithForm } from "./components/popupWithForm";
+import { UserInfo } from "./components/userInfo";
+import { FormValidator } from "./components/formValidator";
 import {api} from "./components/api"
 import {Section} from "./components/Section";
 import {Card} from "./components/Card";
-/*
+
 const elementsContainer = document.querySelector(".elements");
+
+
+/*
 const editContainer = document.querySelector(".popup__container_edit-container");
 const editClose = document.querySelector(".popup__close_edit-close");
 const addPopupClose = document.querySelector(".popup__close_add-close");
@@ -53,6 +59,26 @@ const sectionCards = new Section('.elements',
     sectionCards.addItem({element: cardElement});
   });
 
+
+const settings = {
+    formSelector: ".popup__name",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__submit",
+    inactiveButtonClass: "popup__submit_invalid",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__input-error_active",
+};
+
+const userInfo = new UserInfo({
+    usernameSelector: '.profile__name',
+    userDescriptionSelector: '.profile__prof',
+    userAvatarSelector: '.profile__avatar'
+  });
+
+
+let userID = null;
+
+
 api.getInfo()
 
   .then(([user, initialCards]) => {
@@ -68,26 +94,81 @@ api.getInfo()
     console.log(err)
   })
 
+// 1.Экземпляр класса PopupWithForm для попапа аватара пользователя.
 
-function avatarSubmit(evt) {
-  evt.preventDefault();
-  console.log(avatarLink.value);
-  setStatusOnButton({buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true});
-  api.editAvatar({
-    avatar: avatarLink.value,
-  }).then((data) => {
-    profileAvatar.src = data.avatar;
-    // subButton.textContent = "Сохранение..."
-    closePopup(avProfile);
-    evt.target.reset();
-  })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      setStatusOnButton({buttonElement: avatarSubmitButton, text: 'Сохранить', disabled: false})
-    })
-}
+const popupAvatar = new PopupWithForm(".popup_avatar", {
+  callbackFormSubmit: (user) => {
+      popupAvatar.putStatusOnButton();
+      api.editAvatar(user)
+          .then((res) => {
+              userInfo.setUserAvatar(res.avatar);
+              popupAvatar.close();
+          })
+          .catch((err) => {
+              console.log(`При обновлении аватара возникла ошибка, ${err}`);
+          })
+          .finally(() => {
+              popupAvatar.returnStatusOnButton();
+          });
+  },
+});
+
+// 1.1. Вызов setEventListeners для попапа аватара пользователя.
+
+popupAvatar.setEventListeners();
+
+// 1.2. Валидация попапа аватара пользователя.
+
+const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
+profileAvatarEditValidate.enableValidation();
+
+// 1.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+profileAvatarButton.addEventListener("click", () => {
+  popupAvatar.open();
+  profileAvatarEditValidate.resetValidate();
+});
+
+// 2. Экземпляр класса PopupWithForm для попапа редактирования данных пользователя.
+
+const popupEdit = new PopupWithForm(".popup_edit-profile", {
+  callbackFormSubmit: (user) => {
+      popupEdit.putStatusOnButton();
+      api.editUserProfile(user)
+          .then((res) => {
+              userInfo.setUserInfo({ username: res.name, description: res.about });
+              popupEdit.close();
+          })
+          .catch((err) => {
+              console.log(`При обновлении профиля возникла ошибка, ${err}`);
+          })
+          .finally(() => {
+              popupEdit.returnStatusOnButton();
+          });
+  },
+});
+
+// 2.1. Вызов setEventListeners для попапа редактирования данных пользователя.
+
+popupEdit.setEventListeners();
+
+// 2.2. Валидация попапа редактирования данных пользователя.
+
+const profileEditValidate = new FormValidator(settings, formEdit);
+profileEditValidate.enableValidation();
+
+// 2.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+profileEditButton.addEventListener("click", () => {
+  popupEdit.open();
+  profileEditValidate.resetValidate();
+  const lastUserInfo = userInfo.getUserInfo();
+  nameInput.value = lastUserInfo.username;
+  jobInput.value = lastUserInfo.description;
+});
+
+// 3. Экземпляр класса PopupWithForm для попапа добавления карточки.
+
 
 function addFormSubmit(evt) {
   evt.preventDefault();
@@ -115,6 +196,7 @@ function addFormSubmit(evt) {
     })
 }
 
+//<<<<<<< pair-programming/cards-cat
 function handleFormSubmit(evt) {
   evt.preventDefault();
   setStatusOnButton({buttonElement: submitButton, text: 'Сохраняем...', disabled: true})
@@ -139,8 +221,7 @@ profileEditButton.addEventListener("click", () => {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileProf.textContent;
 });
-
-formEdit.addEventListener("submit", handleFormSubmit);
+//=======
 
 addButton.addEventListener("click", (evt) => {
   openPopup(addPopup);
@@ -149,6 +230,7 @@ addButton.addEventListener("click", (evt) => {
 
 formAddElement.addEventListener("submit", addFormSubmit);
 
+//<<<<<<< pair-programming/cards-cat
 profileAvatarButton.addEventListener("click", () => {
   openPopup(avProfile);
   disableButton(avatarSubmitButton);
@@ -162,6 +244,7 @@ closeButtons.forEach((button) => {
     closePopup(popup);
   });
 });
+//=======
 
 export const handleChangeLikeStatus = (/*cardID, isLiked, newElement, */instance) => {
   api.changeLikeStatus(instance.getCardId(), instance.getHasMyLike())
@@ -180,15 +263,8 @@ export const handleDeleteCard = (instance) => {
       console.log(err);
     });
 };
-const settings = {
-  formSelector: ".popup__name",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit",
-  inactiveButtonClass: "popup__submit_invalid",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input-error_active",
-};
 
+//<<<<<<< pair-programming/cards-cat
 const openZoom = (instance) => {
   openPopup(crdPopup);
   const title = instance.getInfoImg().title
@@ -198,3 +274,4 @@ const openZoom = (instance) => {
 }
 
 enableValidation(settings);
+//=======
