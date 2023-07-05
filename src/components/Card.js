@@ -1,7 +1,7 @@
 import {userId} from "../index";
 
 export class Card {
-  constructor({card, handleDeleteCard, handleChangeLikeStatus, openZoom}, selectorTemplate) {
+  constructor({card, handleDeleteCard, handleChangeLikeStatus, popupZoom}, selectorTemplate) {
     this._userId = userId;
     this._cardLink = card.link;
     this._cardName = card.name;
@@ -11,14 +11,14 @@ export class Card {
     this._selector = selectorTemplate;
     this._handleDeleteCard = handleDeleteCard;
     this._handleChangeLikeStatus = handleChangeLikeStatus;
-    this._openZoom = openZoom;
+    this._openZoom = popupZoom;
   }
 
   _getElement() {
     return document
       .querySelector(this._selector)
       .content
-      .firstElementChild       //Кочкина Екатиерина - было //.querySelector('.element')
+      .firstElementChild
       .cloneNode(true);
   }
 
@@ -74,13 +74,13 @@ export class Card {
     this._element = null;
   }
 
-  getInfoImg() {
-    return {title: this._cardName, url: this._cardLink}
+  _getInfoImg() {
+    return {title: this._cardName, link: this._cardLink}
   }
 
   _setEventListeners() {
     this._elementImage.addEventListener('click', () =>
-      this._openZoom(this));
+      this._openZoom.open(this._getInfoImg()));
 
     this._elementLike.addEventListener('click', () =>
       this._handleChangeLikeStatus(this));

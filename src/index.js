@@ -1,16 +1,17 @@
 import "../src/pages/index.css";
-//<<<<<<< pair-programming/cards-cat
-import {enableValidation} from "./components/validate";
-import {openPopup, closePopup} from "./components/modal";
-import {disableButton, setStatusOnButton} from "./components/utils";
+
 import {PopupWithForm} from "./components/popupWithForm";
 import {UserInfo} from "./components/userInfo";
 import {FormValidator} from "./components/formValidator";
 import {api} from "./components/api"
 import {Section} from "./components/Section";
 import {Card} from "./components/Card";
+import {PopupWithImage} from "./components/popupWithImage";
 
-/* //Кочкина Екатерина - не нужные константы
+/* //Кочкина Екатерина - не нужные константы и импорты
+import {enableValidation} from "./components/validate";
+import {openPopup, closePopup} from "./components/modal";
+import {disableButton, setStatusOnButton} from "./components/utils";
 const elementsContainer = document.querySelector(".elements");
 const editContainer = document.querySelector(".popup__container_edit-container");
 const editClose = document.querySelector(".popup__close_edit-close");
@@ -27,16 +28,19 @@ const editProfile = document.querySelector(".popup_edit-profile");
 const avatarSubmitButton = document.querySelector(".popup__submit_avatar-submit");
 const avProfile = document.querySelector(".popup_avatar");
 */
-
+/*//Кочкина Екатерина - не нужные константы - версия 3
 const addPopup = document.querySelector(".popup_add-popup");
 const crdPopup = document.querySelector(".popup_card-popup");
 const crdPopupImage = document.querySelector(".popup__image_card-image");
 const crdPopupTitle = document.querySelector(".popup__textbox_card-textbox");
+const submitAddButton = document.querySelector(".popup__submit_add-submit");
+*/
+
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 const formEdit = document.querySelector(".popup__name_edit-name");
 const addButton = document.querySelector(".profile__add-button");
 const formAddElement = document.querySelector(".popup__name_add-name");
-const submitAddButton = document.querySelector(".popup__submit_add-submit");
 const profileNameInput = document.querySelector(".profile__name");
 const profileProf = document.querySelector(".profile__prof");
 const nameInput = document.querySelector(".popup__input_text_ed-name");
@@ -50,10 +54,11 @@ const profileAvatar = document.querySelector(".profile__avatar");
 
 export let userId = null;
 
+// К.3 - Создание секции карточек
 const sectionCards = new Section('.elements',
   (card, myId) => {
     const newCard = new Card(
-      {card, handleDeleteCard, handleChangeLikeStatus, openZoom},
+      {card, handleDeleteCard, handleChangeLikeStatus, popupZoom},
       '#element-image');
     const cardElement = newCard.createElement(myId);
     sectionCards.addItem({element: cardElement});
@@ -165,14 +170,16 @@ profileEditButton.addEventListener("click", () => {
 // 3. Экземпляр класса PopupWithForm для попапа добавления карточки.
 
 const popupAddCard = new PopupWithForm(".popup_add-popup", {
-callbackFormSubmit: (formValues) => {
+  //callbackFormSubmit: (formValues) => { // Кочкина Екатерина - ненужный параметр formValues
+  callbackFormSubmit: () => {
   popupAddCard.putStatusOnButton();
   api.addCard({
     name: addNameInput.value,
     link: addLink.value,
   }).then((res) =>{
+    debugger
     const newCard = new Card(
-              {card: res, handleDeleteCard, handleChangeLikeStatus, openZoom},
+              {card: res, handleDeleteCard, handleChangeLikeStatus, popupZoom},
               '#element-image');
             const cardElement = newCard.createElement(userId);
             sectionCards.addItem({element: cardElement, isReverse: true});
@@ -202,55 +209,7 @@ addButton.addEventListener("click", () => {
     profileAddCardValidate.resetValidate();
 });
 
-// function addFormSubmit(evt) {
-//   evt.preventDefault();
-//   console.log(addNameInput.value);
-//   console.log(addLink.value);
-//   setStatusOnButton({buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true});
-//   api.addCard({
-//     name: addNameInput.value,
-//     link: addLink.value,
-//   })
-//     .then((dataFromServer) => {
-//       const newCard = new Card(
-//         {card: dataFromServer, handleDeleteCard, handleChangeLikeStatus, openZoom},
-//         '#element-image');
-//       const cardElement = newCard.createElement(userId);
-//       sectionCards.addItem({element: cardElement, isReverse: true});
-//       closePopup(addPopup);
-//       evt.target.reset();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-//     .finally(() => {
-//       setStatusOnButton({buttonElement: submitAddButton, text: 'Сохранить', disabled: false})
-//     })
-// }
-
-// addButton.addEventListener("click", () => {
-//   openPopup(addPopup);
-//   disableButton(submitAddButton);
-// });
-
-// formAddElement.addEventListener("submit", addFormSubmit);
-
-//<<<<<<< pair-programming/cards-cat // Кочкина Екатерина - удалил, вроде больше не надо
-/*profileAvatarButton.addEventListener("click", () => {
-  openPopup(avProfile);
-  disableButton(avatarSubmitButton);
-});*/
-
-//formAvatar.addEventListener("submit", avatarSubmit); // Кочкина Екатерина - после слияния этот код лишний
-
-/*closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => {
-    closePopup(popup);
-  });
-});*/
-//=======
-
+// К.1 - Обработка изменения лайка
 export const handleChangeLikeStatus = (instance) => {
   api.changeLikeStatus(instance.getCardId(), instance.getHasMyLike())
     .then((dataFromServer) => {
@@ -260,6 +219,7 @@ export const handleChangeLikeStatus = (instance) => {
   });
 };
 
+// К.2 - Обработка удаления карточки
 export const handleDeleteCard = (instance) => {
   api.deleteCard(instance.getCardId()).then(() => {
     instance.remove();
@@ -269,14 +229,6 @@ export const handleDeleteCard = (instance) => {
     });
 };
 
-//<<<<<<< pair-programming/cards-cat
-const openZoom = (instance) => {
-  openPopup(crdPopup);
-  const title = instance.getInfoImg().title
-  crdPopupTitle.textContent = title;
-  crdPopupImage.src = instance.getInfoImg().url;
-  crdPopupImage.alt = title;
-}
-
-// enableValidation(settings);
-// //=======
+// К.3 - Создание попапа просмотра картинки
+const popupZoom = new PopupWithImage(".popup_card-popup");
+popupZoom.setEventListeners();
