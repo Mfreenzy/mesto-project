@@ -51,7 +51,6 @@ export class FormValidator {
     // Метод проверки всех input
 
     _setEventListeners() {
-        this._toggleButtonState();
 
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener("input",  () => {

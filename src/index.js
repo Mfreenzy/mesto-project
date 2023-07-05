@@ -8,35 +8,6 @@ import {Section} from "./components/Section";
 import {Card} from "./components/Card";
 import {PopupWithImage} from "./components/popupWithImage";
 
-/* //Кочкина Екатерина - не нужные константы и импорты
-import {enableValidation} from "./components/validate";
-import {openPopup, closePopup} from "./components/modal";
-import {disableButton, setStatusOnButton} from "./components/utils";
-const elementsContainer = document.querySelector(".elements");
-const editContainer = document.querySelector(".popup__container_edit-container");
-const editClose = document.querySelector(".popup__close_edit-close");
-const addPopupClose = document.querySelector(".popup__close_add-close");
-const popups = document.querySelectorAll(".popup");
-const avatarContainer = document.querySelector(".popup__container_avatar");
-const avatarClose = document.querySelector(".popup__close_avatar");
-const avatarLink = document.querySelector(".popup__input_text__avatar-link");
-*/
-/*//Кочкина Екатерина - не нужные константы - версия 2
-const submitButton = document.querySelector(".popup__submit_edit-submit");
-const closeButtons = document.querySelectorAll(".popup__close");
-const editProfile = document.querySelector(".popup_edit-profile");
-const avatarSubmitButton = document.querySelector(".popup__submit_avatar-submit");
-const avProfile = document.querySelector(".popup_avatar");
-*/
-/*//Кочкина Екатерина - не нужные константы - версия 3
-const addPopup = document.querySelector(".popup_add-popup");
-const crdPopup = document.querySelector(".popup_card-popup");
-const crdPopupImage = document.querySelector(".popup__image_card-image");
-const crdPopupTitle = document.querySelector(".popup__textbox_card-textbox");
-const submitAddButton = document.querySelector(".popup__submit_add-submit");
-*/
-
-
 const profileEditButton = document.querySelector(".profile__edit-button");
 const formEdit = document.querySelector(".popup__name_edit-name");
 const addButton = document.querySelector(".profile__add-button");
@@ -50,7 +21,6 @@ const addLink = document.querySelector(".popup__input_text__ad-link");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const formAvatar = document.querySelector(".popup__name_avatar");
 const profileAvatar = document.querySelector(".profile__avatar");
-
 
 export let userId = null;
 
@@ -161,7 +131,6 @@ profileEditValidate.enableValidation();
 
 profileEditButton.addEventListener("click", () => {
   popupEdit.open();
-  profileEditValidate.resetValidate();
   const lastUserInfo = userInfo.getUserInfo();
   nameInput.value = lastUserInfo.username;
   jobInput.value = lastUserInfo.description;
