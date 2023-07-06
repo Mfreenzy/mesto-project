@@ -25,6 +25,13 @@ export class FormValidator {
     }
 
     // Метод сброса валидации форм
+    checkErrorForm() {
+        this._inputList.forEach((inputItem) => {
+            this._checkInputValidity(inputItem);
+        });
+      this._toggleButtonState();
+    }
+
 
     resetValidate() {
         this._inputList.forEach((inputItem) => {

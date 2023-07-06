@@ -5,7 +5,7 @@ export class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  addItem({element, isReverse= false}) {
+  addItem({element, isReverse}) {
     isReverse ? this._container.prepend(element) : this._container.append(element);
   }
 

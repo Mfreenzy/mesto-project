@@ -1,9 +1,9 @@
 .element {
   position: relative;
-  /*max-width: 282px;*/ /*Кочкина Екатерина - карточка имеет фиксированный размер*/
   width: 282px;
   height: 361px;
   box-sizing: border-box;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
