@@ -12,10 +12,10 @@
     margin: 0;
     padding: 0;
     opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
 
 .profile__edit-button:hover {
-    transition: opacity 2s ease-in-out;
     opacity: 0.6;
 }
 

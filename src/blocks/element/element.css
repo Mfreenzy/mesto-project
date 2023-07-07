@@ -1,11 +1,13 @@
 .element {
-    position: relative;
-    max-width: 282px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border-radius: 10px;
-    align-items: center;
-    row-gap: 25px;
+  position: relative;
+  width: 282px;
+  height: 361px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  align-items: center;
+  row-gap: 25px;
 }

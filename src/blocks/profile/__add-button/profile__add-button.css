@@ -10,10 +10,10 @@
     color: #ffffff;
     opacity: 1;
     margin-left: auto;
+    transition: opacity 1s ease-in-out;
 }
 
 .profile__add-button:hover {
-    transition: opacity 2s ease-in-out;
     opacity: 0.6;
 }
 

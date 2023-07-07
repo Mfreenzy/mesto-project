@@ -1,171 +1,188 @@
 import "../src/pages/index.css";
-import { enableValidation } from "./components/validate";
-import { openPopup, closePopup } from "./components/modal";
-import { addElementsContainer, elementsContainer, addPopup, updateLikeStatus, removeCard } from "./components/card";
-import { disableButton } from "./components/utils";
-import { editUserProfile, addCard, editAvatar, getInfo, changeLikeStatus, deleteCard } from "./components/api";
-import { setStatusOnButton } from "./components/utils";
+import {PopupWithForm} from "./components/PopupWithForm";
+import {UserInfo} from "./components/UserInfo";
+import {FormValidator} from "./components/FormValidator";
+import {Api} from "./components/Api"
+import {Section} from "./components/Section";
+import {Card} from "./components/Card";
+import {PopupWithImage} from "./components/PopupWithImage";
+import {
+  profileEditButton,
+  formEdit,
+  addButton,
+  formAddElement,
+  formAvatar,
+  jobInput,
+  nameInput,
+  profileAvatarButton,
+  settings,
+  } from "./components/utils/constants"
 
-const editContainer = document.querySelector(".popup__container_edit-container");
-const profileEditButton = document.querySelector(".profile__edit-button");
-const editClose = document.querySelector(".popup__close_edit-close");
-const formEdit = document.querySelector(".popup__name_edit-name");
-const submitButton = document.querySelector(".popup__submit_edit-submit");
-const addButton = document.querySelector(".profile__add-button");
-const addPopupClose = document.querySelector(".popup__close_add-close");
-const formAddElement = document.querySelector(".popup__name_add-name");
-const submitAddButton = document.querySelector(".popup__submit_add-submit");
-const closeButtons = document.querySelectorAll(".popup__close");
-const popups = document.querySelectorAll(".popup");
-const profileNameInput = document.querySelector(".profile__name");
-const profileProf = document.querySelector(".profile__prof");
-const nameInput = document.querySelector(".popup__input_text_ed-name");
-const jobInput = document.querySelector(".popup__input_text_ed-prof");
-const editProfile = document.querySelector(".popup_edit-profile");
-const addNameInput = document.querySelector(".popup__input_text_ad-name");
-const addLink = document.querySelector(".popup__input_text__ad-link");
-const avatarContainer = document.querySelector(".popup__container_avatar");
-const profileAvatarButton = document.querySelector(".profile__avatar-button");
-const avatarClose = document.querySelector(".popup__close_avatar");
-const formAvatar = document.querySelector(".popup__name_avatar");
-const avatarSubmitButton = document.querySelector(".popup__submit_avatar-submit");
-const avatarLink = document.querySelector(".popup__input_text__avatar-link");
-const profileAvatar = document.querySelector(".profile__avatar");
-const avProfile = document.querySelector(".popup_avatar");
+let userId = null;
 
-let userID = null;
-
-getInfo()
-.then(([user, initialCards]) => {
-    profileNameInput.textContent = user.name;
-    profileProf.textContent = user.about;
-    profileAvatar.src = user.avatar;
-    userID = user._id;
-
-    initialCards.forEach((data) => {
-        addElementsContainer(elementsContainer, data, userID);
-    })
-})
-.catch((err) => {
-    console.log(err)
-})
-
-
-function avatarSubmit(evt) {
-    evt.preventDefault();
-    console.log(avatarLink.value);
-    setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохраняем...', disabled: true });
-    editAvatar({
-        avatar: avatarLink.value,
-    }).then((data) => {
-        profileAvatar.src = data.avatar;
-        // subButton.textContent = "Сохранение..."
-        closePopup(avProfile);
-        evt.target.reset();
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    .finally(() => {
-        setStatusOnButton({ buttonElement: avatarSubmitButton, text: 'Сохранить', disabled: false })
-      })
-}
-
-function addFormSubmit(evt) {
-    evt.preventDefault();
-    console.log(addNameInput.value);
-    console.log(addLink.value);
-    setStatusOnButton({ buttonElement: submitAddButton, text: 'Сохраняем...', disabled: true });
-    addCard({
-        name: addNameInput.value,
-        link: addLink.value,
-    })
-        .then((dataFromServer) => {
-            addElementsContainer(elementsContainer, dataFromServer, userID);
-            closePopup(addPopup);
-            evt.target.reset();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            setStatusOnButton({ buttonElement: submitAddButton, text: 'Сохранить', disabled: false })
-          })
-}
-
-function handleFormSubmit(evt) {
-    evt.preventDefault();
-    setStatusOnButton({ buttonElement: submitButton, text: 'Сохраняем...', disabled: true })
-    editUserProfile({
-        name: nameInput.value,
-        about: jobInput.value,
-    }).then((data) => {
-        profileNameInput.textContent = data.name;
-        profileProf.textContent = data.about;
-        closePopup(editProfile);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    .finally(() => {
-        setStatusOnButton({ buttonElement: submitButton, text: 'Сохранить', disabled: false })
-      })
-}
-
-profileEditButton.addEventListener("click", () => {
-    openPopup(editProfile);
-    nameInput.value = profileNameInput.textContent;
-    jobInput.value = profileProf.textContent;
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-25",
+  headers: {
+    authorization: "b9602b46-c70a-470b-a1e9-9ea7e0422b9a",
+    "Content-Type": "application/json",
+  },
 });
 
-formEdit.addEventListener("submit", handleFormSubmit);
+function createNewCard(card, myId, isReverse = false) {
+  const newCard = new Card(
+    {card, userId:myId, handleDeleteCard, handleChangeLikeStatus, popupZoom},
+    '#element-image');
+  const cardElement = newCard.createElement(myId);
+  sectionCards.addItem({element: cardElement, isReverse});
+}
 
-addButton.addEventListener("click", (evt) => {
-    openPopup(addPopup);
-    disableButton(submitAddButton);
+// К.3 - Создание секции карточек
+const sectionCards = new Section('.elements',
+  (card, myId) => {
+    createNewCard(card, myId);
+  });
+
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__name',
+  userDescriptionSelector: '.profile__prof',
+  userAvatarSelector: '.profile__avatar'
 });
 
-formAddElement.addEventListener("submit", addFormSubmit);
+// К.3 - Создание попапа просмотра картинки
+const popupZoom = new PopupWithImage(".popup_card-popup");
+popupZoom.setEventListeners();
+
+api.getInfo()
+
+  .then(([user, initialCards]) => {
+    userInfo.setFullInfo(user);
+    userId = userInfo.getUserId();
+    sectionCards.renderItems(initialCards, userId);
+  })
+  .catch(console.error)
+
+
+
+
+// 1. Экземпляр класса PopupWithForm для попапа аватара пользователя.
+
+const popupAvatar = new PopupWithForm(".popup_avatar", {
+  callbackFormSubmit: (user) => {
+    popupAvatar.putStatusOnButton();
+    api.editAvatar(user)
+      .then((res) => {
+        userInfo.setUserAvatar(res.avatar);
+        popupAvatar.close();
+      })
+      .catch(console.error)
+      .finally(() => {
+        popupAvatar.returnStatusOnButton();
+      });
+  },
+});
+
+// 1.1. Вызов setEventListeners для попапа аватара пользователя.
+
+popupAvatar.setEventListeners();
+
+// 1.2. Валидация попапа аватара пользователя.
+
+const profileAvatarEditValidate = new FormValidator(settings, formAvatar);
+profileAvatarEditValidate.enableValidation();
+
+// 1.3. Слушатель кнопки редактирования попапа аватара пользователя.
 
 profileAvatarButton.addEventListener("click", () => {
-    openPopup(avProfile);
-    disableButton(avatarSubmitButton);
+  popupAvatar.open();
+  profileAvatarEditValidate.resetValidate();
 });
 
-formAvatar.addEventListener("submit", avatarSubmit);
+// 2. Экземпляр класса PopupWithForm для попапа редактирования данных пользователя.
 
-closeButtons.forEach((button) => {
-    const popup = button.closest(".popup");
-    button.addEventListener("click", () => {
-        closePopup(popup);
-    });
+const popupEdit = new PopupWithForm(".popup_edit-profile", {
+  callbackFormSubmit: (user) => {
+    popupEdit.putStatusOnButton();
+    api.editUserProfile(user)
+      .then((res) => {
+        userInfo.setUserInfo({ userName:res.name, description:res.about });
+        popupEdit.close();
+      })
+      .catch(console.error)
+      .finally(() => {
+        popupEdit.returnStatusOnButton();
+      });
+  },
 });
 
-export const handleChangeLikeStatus = (cardID, isLiked, newElement) => {
-    changeLikeStatus(cardID, isLiked)
-    .then((dataFromServer) => {
-        updateLikeStatus(newElement, dataFromServer.likes, userID);
-    }).catch((err) => {
-        console.log(err);
-    });
-};
+// 2.1. Вызов setEventListeners для попапа редактирования данных пользователя.
 
-export const handleDeleteCard = (cardID, newElement) => {
-    deleteCard(cardID).then(() => {
-        removeCard(newElement);
+popupEdit.setEventListeners();
+
+// 2.2. Валидация попапа редактирования данных пользователя.
+
+const profileEditValidate = new FormValidator(settings, formEdit);
+profileEditValidate.enableValidation();
+
+// 2.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+profileEditButton.addEventListener("click", () => {
+  popupEdit.open();
+  const lastUserInfo = userInfo.getUserInfo();
+  nameInput.value = lastUserInfo.userName;
+  jobInput.value = lastUserInfo.description;
+  profileEditValidate.checkErrorForm();
+
+});
+
+// 3. Экземпляр класса PopupWithForm для попапа добавления карточки.
+
+const popupAddCard = new PopupWithForm(".popup_add-popup", {
+  callbackFormSubmit: () => {
+    popupAddCard.putStatusOnButton();
+    api.addCard(popupAddCard.getInputValues())
+      .then((card) => {
+      createNewCard(card, userId, true);
+      popupAddCard.close();
     })
-    .catch((err) => {
-        console.log(err);
-    });
+      .catch(console.error)
+      .finally(() => {
+        popupAddCard.returnStatusOnButton();
+      });
+  },
+});
+
+// 3.1. Вызов setEventListeners для попапа редактирования данных пользователя.
+
+popupAddCard.setEventListeners();
+
+// 3.2. Валидация попапа редактирования данных пользователя.
+
+const profileAddCardValidate = new FormValidator(settings, formAddElement);
+profileAddCardValidate.enableValidation();
+
+// 3.3. Слушатель кнопки редактирования попапа аватара пользователя.
+
+addButton.addEventListener("click", () => {
+  popupAddCard.open();
+  profileAddCardValidate.resetValidate();
+});
+
+// К.1 - Обработка изменения лайка
+const handleChangeLikeStatus = (instance) => {
+  api.changeLikeStatus(instance.getCardId(), instance.getHasMyLike())
+    .then((dataFromServer) => {
+      instance.updateLikeValueInstance(dataFromServer.likes);
+    })
+    .catch(console.error);
 };
 
-const settings = {
-    formSelector: ".popup__name",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__submit",
-    inactiveButtonClass: "popup__submit_invalid",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__input-error_active",
+// К.2 - Обработка удаления карточки
+const handleDeleteCard = (instance) => {
+  api.deleteCard(instance.getCardId()).then(() => {
+    instance.remove();
+  })
+    .catch(console.error);
 };
 
-enableValidation(settings);
+
+
