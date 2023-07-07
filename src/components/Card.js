@@ -1,7 +1,7 @@
-import {userId} from "../index";
+/*import {userId} from "../index";*/
 
 export class Card {
-  constructor({card, handleDeleteCard, handleChangeLikeStatus, popupZoom}, selectorTemplate) {
+  constructor({card, userId, handleDeleteCard, handleChangeLikeStatus, popupZoom}, selectorTemplate) {
     this._userId = userId;
     this._cardLink = card.link;
     this._cardName = card.name;

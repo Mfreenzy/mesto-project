@@ -1,5 +1,4 @@
 import "../src/pages/index.css";
-
 import {PopupWithForm} from "./components/PopupWithForm";
 import {UserInfo} from "./components/UserInfo";
 import {FormValidator} from "./components/FormValidator";
@@ -7,30 +6,21 @@ import {Api} from "./components/Api"
 import {Section} from "./components/Section";
 import {Card} from "./components/Card";
 import {PopupWithImage} from "./components/PopupWithImage";
+import {
+  profileEditButton,
+  formEdit,
+  addButton,
+  addLink,
+  addNameInput,
+  formAddElement,
+  formAvatar,
+  jobInput,
+  nameInput,
+  profileAvatarButton,
+  settings,
+  } from "./components/utils/constants"
 
-const profileEditButton = document.querySelector(".profile__edit-button");
-const formEdit = document.querySelector(".popup__name_edit-name");
-const addButton = document.querySelector(".profile__add-button");
-const formAddElement = document.querySelector(".popup__name_add-name");
-const profileNameInput = document.querySelector(".profile__name");
-const profileProf = document.querySelector(".profile__prof");
-const nameInput = document.querySelector(".popup__input_text_ed-name");
-const jobInput = document.querySelector(".popup__input_text_ed-prof");
-const addNameInput = document.querySelector(".popup__input_text_ad-name");
-const addLink = document.querySelector(".popup__input_text__ad-link");
-const profileAvatarButton = document.querySelector(".profile__avatar-button");
-const formAvatar = document.querySelector(".popup__name_avatar");
-const profileAvatar = document.querySelector(".profile__avatar");
-const settings = {
-  formSelector: ".popup__name",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit",
-  inactiveButtonClass: "popup__submit_invalid",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input-error_active",
-};
-
-export let userId = null;
+let userId = null;
 
 const api = new Api({
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-25",
@@ -42,7 +32,7 @@ const api = new Api({
 
 function createNewCard(card, myId, isReverse = false) {
   const newCard = new Card(
-    {card, handleDeleteCard, handleChangeLikeStatus, popupZoom},
+    {card, userId:myId, handleDeleteCard, handleChangeLikeStatus, popupZoom},
     '#element-image');
   const cardElement = newCard.createElement(myId);
   sectionCards.addItem({element: cardElement, isReverse});
@@ -55,7 +45,7 @@ const sectionCards = new Section('.elements',
   });
 
 const userInfo = new UserInfo({
-  usernameSelector: '.profile__name',
+  userNameSelector: '.profile__name',
   userDescriptionSelector: '.profile__prof',
   userAvatarSelector: '.profile__avatar'
 });
@@ -67,10 +57,8 @@ popupZoom.setEventListeners();
 api.getInfo()
 
   .then(([user, initialCards]) => {
-    profileNameInput.textContent = user.name;
-    profileProf.textContent = user.about;
-    profileAvatar.src = user.avatar;
-    userId = user._id;
+    userInfo.setFullInfo(user);
+    userId = userInfo.getUserId();
     console.log(user);
     console.log(initialCards);
     sectionCards.renderItems(initialCards, userId);
@@ -121,7 +109,7 @@ const popupEdit = new PopupWithForm(".popup_edit-profile", {
     popupEdit.putStatusOnButton();
     api.editUserProfile(user)
       .then((res) => {
-        userInfo.setUserInfo({userName: res.name, description: res.about});
+        userInfo.setUserInfo({ userName:res.name, description:res.about });
         popupEdit.close();
       })
       .catch((err) => {
