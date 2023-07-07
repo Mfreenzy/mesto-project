@@ -10,8 +10,6 @@ import {
   profileEditButton,
   formEdit,
   addButton,
-  addLink,
-  addNameInput,
   formAddElement,
   formAvatar,
   jobInput,
@@ -36,7 +34,7 @@ function createNewCard(card, myId, isReverse = false) {
     '#element-image');
   const cardElement = newCard.createElement(myId);
   sectionCards.addItem({element: cardElement, isReverse});
-};
+}
 
 // К.3 - Создание секции карточек
 const sectionCards = new Section('.elements',
@@ -59,13 +57,12 @@ api.getInfo()
   .then(([user, initialCards]) => {
     userInfo.setFullInfo(user);
     userId = userInfo.getUserId();
-    console.log(user);
-    console.log(initialCards);
     sectionCards.renderItems(initialCards, userId);
   })
-  .catch((err) => {
-    console.log(err)
-  })
+  .catch(console.error)
+
+
+
 
 // 1. Экземпляр класса PopupWithForm для попапа аватара пользователя.
 
@@ -77,9 +74,7 @@ const popupAvatar = new PopupWithForm(".popup_avatar", {
         userInfo.setUserAvatar(res.avatar);
         popupAvatar.close();
       })
-      .catch((err) => {
-        console.log(`При обновлении аватара возникла ошибка, ${err}`);
-      })
+      .catch(console.error)
       .finally(() => {
         popupAvatar.returnStatusOnButton();
       });
@@ -112,9 +107,7 @@ const popupEdit = new PopupWithForm(".popup_edit-profile", {
         userInfo.setUserInfo({ userName:res.name, description:res.about });
         popupEdit.close();
       })
-      .catch((err) => {
-        console.log(`При обновлении профиля возникла ошибка, ${err}`);
-      })
+      .catch(console.error)
       .finally(() => {
         popupEdit.returnStatusOnButton();
       });
@@ -146,15 +139,12 @@ profileEditButton.addEventListener("click", () => {
 const popupAddCard = new PopupWithForm(".popup_add-popup", {
   callbackFormSubmit: () => {
     popupAddCard.putStatusOnButton();
-    api.addCard({
-      name: addNameInput.value,
-      link: addLink.value,
-    }).then((card) => {
+    api.addCard(popupAddCard.getInputValues())
+      .then((card) => {
       createNewCard(card, userId, true);
       popupAddCard.close();
-    }).catch((err) => {
-      console.log(`При добавлении изображения возникла ошибка, ${err}`);
     })
+      .catch(console.error)
       .finally(() => {
         popupAddCard.returnStatusOnButton();
       });
@@ -182,9 +172,8 @@ const handleChangeLikeStatus = (instance) => {
   api.changeLikeStatus(instance.getCardId(), instance.getHasMyLike())
     .then((dataFromServer) => {
       instance.updateLikeValueInstance(dataFromServer.likes);
-    }).catch((err) => {
-    console.log(err);
-  });
+    })
+    .catch(console.error);
 };
 
 // К.2 - Обработка удаления карточки
@@ -192,9 +181,7 @@ const handleDeleteCard = (instance) => {
   api.deleteCard(instance.getCardId()).then(() => {
     instance.remove();
   })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(console.error);
 };
 
 

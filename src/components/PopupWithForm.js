@@ -12,7 +12,7 @@ export class PopupWithForm extends Popup {
 
 // Метод сборки данных всех полей формы 
 
-    _getInputValues() {
+    getInputValues() {
         this.formValues = {};
         this._inputList.forEach(inputItem => {
             this.formValues[inputItem.name] = inputItem.value;
@@ -26,7 +26,7 @@ export class PopupWithForm extends Popup {
         super.setEventListeners();
         this._popupForm.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._callbackFormSubmit(this._getInputValues());
+            this._callbackFormSubmit(this.getInputValues());
           });
         }
 // Метод добавления кнопке текста в момент сохранения
